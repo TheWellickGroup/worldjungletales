@@ -6,6 +6,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Wild World Tales</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap"
+      rel="stylesheet"
+    />
     <!-- CSS only -->
     <link
       rel="stylesheet"
@@ -22,20 +28,26 @@
       href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap" rel="stylesheet">
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css"
     />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css"
+    />
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
-   </head>
-   <style>
+    <link
+      href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+
+    <style>
       body {
         background-color: #ffffff;
         color: #000101;
-        font-family: 'Spinnaker', sans-serif !important;
+        font-family: "Spinnaker", sans-serif !important;
       }
 
       .carousel {
@@ -581,7 +593,6 @@
         border-top-right-radius: 0;
       }
 
-    
       .blog_head {
         background-color: #ef5b25;
         color: #ffffff;
@@ -639,7 +650,6 @@
         background-image: url("https://images.pexels.com/photos/4132326/pexels-photo-4132326.jpeg?cs=srgb&dl=pexels-ketut-subiyanto-4132326.jpg&fm=jpg");
       }
 
-  
       .stretched-link:hover {
         color: #ef5b25 !important;
         text-decoration: underline;
@@ -776,16 +786,32 @@
         color: #ffffff;
       }
       .splide__slide img {
-          width: 100%;
-          object-fit: cover;
-        }
-
+        width: 100%;
+        object-fit: cover;
+      }
+      a {
+        text-decoration: none;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+      .btn-green {
+        background-color: #42c970;
+        text-decoration: none;
+        color: #ffffff;
+      }
+      .btn-green:hover {
+        background-color: #42c970;
+        color: #ffffff;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg dark_bg">
       <div class="container-fluid">
-        <a class="navbar-brand text-white" href="{% url 'home' %}">Wild World Tales</a>
+        <a class="navbar-brand text-white" href="{% url 'home' %}"
+          >Wild World Tales</a
+        >
         <span
           class="navbar-toggler"
           type="button"
@@ -795,71 +821,126 @@
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <!-- <span class="navbar-toggler-icon"></span> -->
           <i class="bi bi-list text-white"></i>
-      </span>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
-          <ul class="navbar-nav mb-2 mb-lg-0 justify-content-center text-center">
+        </span>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul
+            class="navbar-nav mb-2 mb-lg-0 justify-content-center text-center"
+          >
             {% for category in categories %}
             <li class="nav-item">
-              <a class="nav-link active text-white" href="{{base_url}}/topics/{{ category.slug }}">{{ category.title }}</a>
+              <a
+                class="nav-link active text-white"
+                href="{{base_url}}/topics/{{ category.slug }}"
+                >{{ category.title }}</a
+              >
             </li>
             {% endfor %}
           </ul>
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a href="{% url 'login' %}" class="nav nav-link  text-white"><i class="bi bi-lock"></i></a>
+              <a href="{% url 'login' %}" class="nav nav-link text-white"
+                ><i class="bi bi-lock"></i
+              ></a>
             </li>
           </ul>
-        </div>  
+        </div>
       </div>
     </nav>
-    {% block content %} {% endblock %} 
-    <footer class="footer mt-auto py-3  pt-5 dark_bg">
+    {% block content %} {% endblock %}
+    <footer class="footer mt-auto py-3 pt-5 dark_bg">
       <footer id="footer" class="footer">
         <div class="footer-content">
           <div class="container">
             <div class="row g-5">
               <div class="col-lg-4">
-                <h5 class="footer-heading">WORLD WIDE TALES</h5>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
-                <p><a href="{% url 'home' %}" class="footer-link-more text-white">Learn More</a></p>
+                <h5 class="footer-heading">World Wide Tales</h5>
+                <small>
+                  A wildlife blog that highlights important issues, subjects,
+                  individuals, and organization with the aim or protecting the
+                  earth's flora and fauna in this times where we are faced with
+                  biodiveristy and a climate crisis that poses a mass extiction
+                  threat
+                </small>
+                <p>
+                  <a href="{% url 'home' %}" class="footer-link-more text-white"
+                    >Learn More <i class="bi bi-arrow-right"></i></a
+                  >
+                </p>
               </div>
               <div class="col-6 col-lg-2">
-                <h5 class="footer-heading">QUICK LINKS</h5>
+                <h5 class="footer-heading">Quick Links</h5>
                 <ul class="footer-links list-unstyled">
-                  <li><a href="{{ base_url}}" class="text-white"><i class="bi bi-chevron-right "></i>Home</a></li>
-                  <br>
-                  <li><a href="{{ base_url}}"  class="text-white"><i class="bi bi-chevron-right "></i>About us</a></li>
-                  <br>
-                  <li><a href="{{ base_url}}"  class="text-white"><i class="bi bi-chevron-right "></i>Contact</a></li>
-                  <br>
-                  <li><a href="{{ base_url}}"   class="text-white"><i class="bi bi-chevron-right "></i>Advertising</a></li>
+                  <li>
+                    <a href="{{ base_url}}" class="text-white"
+                      ><i class="bi bi-chevron-right"></i>Home</a
+                    >
+                  </li>
+                  <li>
+                    <a href="{{ base_url}}" class="text-white"
+                      ><i class="bi bi-chevron-right"></i>About us</a
+                    >
+                  </li>
+                
+                  <li>
+                    <a href="{{ base_url}}" class="text-white"
+                      ><i class="bi bi-chevron-right"></i>Contact</a
+                    >
+                  </li>
+                
+                  <li>
+                    <a href="{{ base_url}}" class="text-white"
+                      ><i class="bi bi-chevron-right"></i>Advertising</a
+                    >
+                  </li>
+                  <li>
+                    <a href="{{ base_url}}" class="text-white"
+                      ><i class="bi bi-chevron-right"></i>Faqs</a
+                    >
+                  </li>
                 </ul>
               </div>
               <div class="col-6 col-lg-2">
-                <h5 class="footer-heading">CATEGORIES</h5>
+                <h5 class="footer-heading">Topics</h5>
                 <ul class="footer-links list-unstyled">
                   {% for category in categories %}
-                  <li><a href="{{ base_url}}/topics/{{ category.slug}}" class="text-white"><i class="bi bi-chevron-right"></i>{{ category.title }}</a></li>
-                  <br>
+                  <li>
+                    <a
+                      href="{{ base_url}}/topics/{{ category.slug}}"
+                      class="text-white"
+                      ><i class="bi bi-chevron-right"></i>{{ category.title }}</a
+                    >
+                  </li>
+                
                   {% endfor %}
                 </ul>
               </div>
               <div class="col-lg-4">
-                <h5 class="footer-heading">RECENT</h5>
+                <h5 class="footer-heading">Recent Stories</h5>
                 <ul class="footer-links footer-blog-entry list-unstyled">
                   {% for recent in recents %}
                   <li>
-                    <a href="{% url 'article' recent.slug %}" class="d-flex align-items-center text-white">
-                      <img src="{{ base_url }}/media/{{ recent.image }}" alt="{{ article.title }}" class="img-fluid me-3" style="width: 59px;">
+                    <a
+                      href="{% url 'article' recent.slug %}"
+                      class="d-flex align-items-center text-white"
+                    >
+                      <img
+                        src="{{ base_url }}/media/{{ recent.image }}"
+                        alt="{{ article.title }}"
+                        class="img-fluid me-3"
+                        style="width: 59px"
+                      />
                       <div>
-                        <div class="post-meta d-block"><span class="date">Culture</span> <span class="mx-1">&bullet;</span> <span>{{ recent.created_on }}</span></div>
+                        <div class="post-meta d-block">
+                          <span class="date">Culture</span>
+                          <span class="mx-1">&bullet;</span>
+                          <span>{{ recent.created_on }}</span>
+                        </div>
                         <span>{{ article.title | title }}</span>
                       </div>
                     </a>
                   </li>
-                  <br>
+                  <br />
                   {% endfor %}
                 </ul>
               </div>
@@ -877,31 +958,46 @@
               </div>
               <div class="col-md-6">
                 <div class="social-links mb-3 mb-lg-0 text-center text-md-end">
-                  <a href="#" class="twitter text-white"><i class="bi bi-twitter xl"></i></a>
-                  <a href="#" class="facebook text-white"><i class="bi bi-facebook"></i></a>
-                  <a href="#" class="instagram text-white"><i class="bi bi-instagram"></i></a>
-                  <a href="#" class="google-plus text-white"><i class="bi bi-skype"></i></a>
-                  <a href="#" class="linkedin text-white"><i class="bi bi-linkedin"></i></a>
+                  <a href="#" class="twitter text-white"
+                    ><i class="bi bi-twitter xl"></i
+                  ></a>
+                  <a href="#" class="facebook text-white"
+                    ><i class="bi bi-facebook"></i
+                  ></a>
+                  <a href="#" class="instagram text-white"
+                    ><i class="bi bi-instagram"></i
+                  ></a>
+                  <a href="#" class="google-plus text-white"
+                    ><i class="bi bi-skype"></i
+                  ></a>
+                  <a href="#" class="linkedin text-white"
+                    ><i class="bi bi-linkedin"></i
+                  ></a>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </footer>
-      <script type='text/javascript' src='https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js'></script>  	
-      <script>
-	        var editor = new FroalaEditor('#example');		
-          new Splide( '.splide', {
-            type: 'loop',
-            heightRatio: 0.2,
-          } ).mount();
-          document.getElementById("year").innerHTML = new Date().getFullYear();
-      </script>
+    </footer>
+
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"
+    ></script>
+    <script>
+      var editor = new FroalaEditor("#example");
+      new Splide(".splide", {
+        type: "loop",
+        heightRatio: 0.2,
+      }).mount();
+      document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
       crossorigin="anonymous"
     ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </body>
 </html>

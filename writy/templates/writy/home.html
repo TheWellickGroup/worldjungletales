@@ -1,4 +1,6 @@
-{% extends 'writy/base.html' %} {% load static %} {% block content %}
+{% extends 'writy/base.html' %} 
+{% load static %}
+ {% block content %} 
  {% if highlights %}
 <section id="image-carousel" class="splide" aria-label="Beautiful Wildlife">
   <div class="splide__track">
@@ -35,15 +37,17 @@
               src="{{base_url}}/media/{{ latest.image }}"
             />
             <div class="card-body">
-              <h5 class="title text-black">{{ latest.title |title|truncatechars:23 }}</h5>
-              <div class="d-flex justify-content-between align-items-center">
+              <small>{{ latest.topic|upper }}</small>
+              <h5 class="title text-black">
+                {{ latest.title |title}}
+              </h5>
+              <div class=" ">
                 <a
                   href="{% url 'article' latest.slug %} "
-                  class="text-black btn-outline-secondary"
+                  class="btn  btn-green text-right"
                 >
-                  Continue reading...
+                  READ...
                 </a>
-                <small class="text-muted">3 mins</small>
               </div>
             </div>
           </div>
@@ -54,18 +58,25 @@
 
     <div class="row g-5 pt-5">
       <div class="col-md-8">
-        <h5 class="pb-4 mb-4 border-bottom title">FROM THE EDITOR</h5>
+        <h5 class="pb-4 mb-4 border-bottom title">
+          <i class="bi bi-fire"></i>Today's Picks.
+        </h5>
 
         {% if articles %} {% for article in articles %}
         <article class="blog-post">
-          <a href="{% url 'article' article.slug %} " class="text-black ">
-            <h5 class="title ">{{ article.title |title}}</h5>
+          <small>{{ article.topic|upper }}</small>
+          <a href="{% url 'article' article.slug %} " class="text-black">
+            <h5 class="title">{{ article.title |title}}</h5>
           </a>
-          <p class="blog-post-meta">
+          <!-- <p class="blog-post-meta">
             {{ articles.updated_on }} by
             <small class="text-black">{{ article.author }}</small>
+          </p> -->
+          <p>
+            {% autoescape off %}
+             {{ article.content | truncatechars:253 }} 
+            {% endautoescape %}
           </p>
-          <p>{% autoescape off %} {{ article.content | truncatechars:253  }} {% endautoescape %}</p>
         </article>
         {% endfor %} {% endif %}
         <nav class="blog-pagination" aria-label="Pagination">
@@ -84,12 +95,12 @@
       <div class="col-md-4">
         <div class="position-sticky" style="top: 2rem">
           <div class="p-4 mb-3 rounded">
-            <h5 class="title">READ MORE.</h5>
+            <h5 class="title">About Author.</h5>
             <hr />
-            <p class="mb-0">
-              We know you are talented, you want to report about issues you see
-              around, here is a chance for you..
-            </p>
+            <small class="mb-0">
+              Willis Benard is a conservationist by passion and profession, a writer, 
+              an environmental educator and explorer who is passionate about wildlife and the wild world.
+            </small>
           </div>
 
           <div class="p-4">
@@ -143,6 +154,6 @@
 <hr />
 <div class="justify-content-center text-center pt-5 pb-5">
   <p class="lead">Get The Latest Wildlife Stories Delivered To your Inbox</p>
-  <a href="{% url 'subscribe' %}" class="btn b_btn">subscribe</a>
+  <a href="{% url 'subscribe' %}" class="btn btn-green">subscribe</a>
 </div>
 {% endblock %}
