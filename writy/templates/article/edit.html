@@ -107,7 +107,12 @@
           </div>
 
           <br />
-          <textarea id="editor" name="content">{{ article.content }}</textarea>
+          <textarea  name="content" id="summernote" cols="30" rows="10" class="form-control" value="{{ article.content }}"></textarea>
+          <div class="alert alert-info">
+            <span class="text-info">
+              Its even better to draft on a PC <i class="bi bi-check"></i
+            ></span>
+          </div>
           <br />
           <button class="w-100 btn b_btn" type="submit">SAVE</button>
         </form>
