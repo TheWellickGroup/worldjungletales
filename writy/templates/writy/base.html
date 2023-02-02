@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Spinnaker&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap"
       rel="stylesheet"
     />
     <!-- CSS only -->
@@ -28,14 +28,21 @@
       href="https://cdn.jsdelivr.net/npm/@splidejs/splide@latest/dist/css/splide.min.css"
     />
     <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css"
+      rel="stylesheet"
+    />
     <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     <style>
       body {
         background-color: #ffffff;
         color: #000101;
-        font-family: "Spinnaker", sans-serif !important;
+        font-family: "Raleway", sans-serif !important;
       }
 
       .carousel {
@@ -829,12 +836,14 @@
             {% if user.is_authenticated %}
             <li class="nav-item">
               <a href="{% url 'profile' %}" class="nav nav-link text-white"
-                ><i class="bi bi-speedometer"></i> Dashboard </a>
+                ><i class="bi bi-speedometer"></i> Dashboard
+              </a>
             </li>
             {% else %}
             <li class="nav-item">
               <a href="{% url 'login' %}" class="nav nav-link text-white"
-                ><i class="bi bi-box-arrow-in-right"></i> account</a>
+                ><i class="bi bi-box-arrow-in-right"></i> account</a
+              >
             </li>
             {% endif %}
           </ul>
@@ -858,8 +867,8 @@
                 </small>
                 <p>
                   <a href="{% url 'home' %}" class="footer-link-more text-white"
-                    >Learn More <i class="bi bi-arrow-right"></i></a
-                  >
+                    >Learn More <i class="bi bi-arrow-right"></i
+                  ></a>
                 </p>
               </div>
               <div class="col-6 col-lg-2">
@@ -875,13 +884,13 @@
                       ><i class="bi bi-chevron-right"></i>About us</a
                     >
                   </li>
-                
+
                   <li>
                     <a href="{{ base_url}}" class="text-white"
                       ><i class="bi bi-chevron-right"></i>Contact</a
                     >
                   </li>
-                
+
                   <li>
                     <a href="{{ base_url}}" class="text-white"
                       ><i class="bi bi-chevron-right"></i>Advertising</a
@@ -905,7 +914,7 @@
                       ><i class="bi bi-chevron-right"></i>{{ category.title }}</a
                     >
                   </li>
-                
+
                   {% endfor %}
                 </ul>
               </div>
@@ -975,22 +984,22 @@
       </footer>
     </footer>
     <script>
-       $('#summernote').summernote({
-        placeholder: 'start writing...',
+      $("#summernote").summernote({
+        placeholder: "start writing...",
         tabsize: 2,
         height: 120,
         toolbar: [
-          ['style', ['style']],
-          ['font', ['bold', 'underline', 'clear']],
-          ['color', ['color']],
-          ['para', ['ul', 'ol', 'paragraph']],
-          ['table', ['table']],
-          ['insert', ['link', 'picture', 'video']],
-          ['view', ['fullscreen', 'codeview', 'help']]
-        ]
+          ["style", ["style"]],
+          ["font", ["bold", "underline", "clear"]],
+          ["color", ["color"]],
+          ["para", ["ul", "ol", "paragraph"]],
+          ["table", ["table"]],
+          ["insert", ["link", "picture", "video"]],
+          ["view", ["fullscreen", "codeview", "help"]],
+        ],
       });
     </script>
-    
+
     <script>
       document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>
