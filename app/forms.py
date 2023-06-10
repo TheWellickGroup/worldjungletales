@@ -1,8 +1,13 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from writy.models import Article, Comment, Subscriber, Contact
+from app.models import Article, Comment, Subscriber, Contact, Topic
 
+
+class TopicForm:
+    class Meta:
+        model = Topic
+        fields = ("title")
 
 class SignUpForm(UserCreationForm):
     class Meta:

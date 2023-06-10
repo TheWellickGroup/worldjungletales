@@ -1,51 +1,4 @@
-{% extends 'writy/base.html' %} {% block content %}
-
-<div class="text-center pt-3">
-  <h5 class="title">
-    Start drafting now
-    <a href="{% url 'article_new'  %}" class="btn b_btn">
-      new article.
-    </a>
-  </h5>
-  <div class="container-fluid">
-    <div class="row">
-      <nav
-        id="sidebarMenu"
-        class="col-md-3 col-lg-2 d-md-block bg-white sidebar collapse"
-      >
-        <div class="position-sticky">
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a
-                class="nav-link active fw-bold title text-black"
-                aria-current="page"
-                href="{% url 'profile' %}"
-              >
-                <i class="bi bi-house-heart"></i>
-                {{ user.get_username }}
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold text-black" href="{% url 'articles' user.id %}">
-                <i class="bi bi-journal-check"></i>
-                Articles
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold text-black" href="{% url 'drafts' user.id %}">
-                <i class="bi bi-book"></i>
-                Drafts
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link fw-bold text-black" href="#">
-                <i class="bi bi-bookmark-check"></i>
-                Published
-              </a>
-            </li>
-          </ul>
-        </div>
-      </nav>
+{% extends 'article/base.html' %} {% block content %}
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="album py-5 ">
           <div class="container">
@@ -110,14 +63,4 @@
           </div>
         </div>
       </main>
-    </div>
-  </div>
-  <h5 class="title text-center">
-    Go Back
-    <a href="{% url 'profile'  %}" class="btn b_btn">
-      <i class="bi bi-arrow-left-square"></i>
-    </a>
-  </h5>
-</div>
-
 {% endblock %}

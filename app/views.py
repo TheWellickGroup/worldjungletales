@@ -2,9 +2,9 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
 from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import logout
-from writy.models import Article, Topic, Subscriber, Comment
+from app.models import Article, Topic, Subscriber, Comment
 from django.contrib.auth.models import User
-from .forms import ArticleForm, CommentForm, ContactForm, SignUpForm, SubscribeForm
+from .forms import ArticleForm, CommentForm, ContactForm, SignUpForm, SubscribeForm, TopicForm
 from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
@@ -14,6 +14,43 @@ from django.core.mail import send_mail
 
 UserModel = get_user_model()
 
+# Dashboard 
+
+def dashboard(request):
+    if request.method == "GET":
+        context = {}
+        articles = Article.objects.filter().order_by("created_on").all()
+        context["articles"] = articles
+        return render(request, "article/dashboard.html", context)
+
+
+
+def all_topics(request):
+    if request.method == "GET":
+        context = {}
+        topics = Topic.objects.filter().order_by("created_on").all()
+        context["topics"] = topics
+        return render(request, "topic/index.html", context)
+
+
+def topic_new(request):
+    context = {}
+    if request.method == "GET":
+        return render(request, "topic/create.html")
+    
+    if request.method == "POST":
+        form = TopicForm(request.data)
+        if form.is_valid():
+            topic = form.save(commit=False)
+            topic.author = request.user
+            topic.slug = topic.title.replace(" ", "-")
+            topic.save()
+            context["success"] = "Topic Created"
+            return render(request, "topic/create.html", context)
+
+    else:
+        form = TopicForm()
+    return render(request, "topic/create.html", {"form": form})            
 
 # 404 Page
 
@@ -36,16 +73,16 @@ def error_500(request):
 
 def home(request):
     categories = Topic.objects.filter(status=1)
-    articles = Article.objects.filter(status=1, author=1)[:3]
+    articles = Article.objects.filter(status=1)[:3]
     latest = Article.objects.filter(status=1).order_by("-created_on")[:3]
     recents = Article.objects.filter(status=1).order_by("-created_on")[:2]
-    highlights = Article.objects.filter().order_by("created_on").all()
+    highlights = Article.objects.filter().order_by("created_on")[:1]
     context = {}
     context["categories"] = categories
     context["articles"] = articles
     context["latests"] = latest
     context["recents"] = recents
-    # context["highlights"] = highlights
+    context["highlights"] = highlights
 
     return render(request, "writy/home.html", context)
 
@@ -65,7 +102,7 @@ def topics(request, slug):
 
 def articles(request, pk):
     categories = Topic.objects.filter(status=1)
-    author = get_object_or_404(User, pk=pk)
+    author = request.user
     articles = Article.objects.filter(author=author, status=1).order_by("-created_on")
 
     return render(
@@ -168,8 +205,8 @@ def article_edit(request, pk):
 # List of draft Articles.
 
 
-def drafts(request, pk):
-    author = get_object_or_404(User, pk=pk)
+def drafts(request):
+    author = request.user
     articles = Article.objects.filter(author=author, status=0).order_by("-created_on")
     categories = Topic.objects.filter(status=1)
 
@@ -181,8 +218,8 @@ def drafts(request, pk):
 # Publish a draft article.
 
 
-def draft_publish(request, pk, article_pk):
-    author = get_object_or_404(User, pk=pk)
+def draft_publish(request, article_pk):
+    author = request.user
     articles = Article.objects.filter(author=author, status=0).order_by("-created_on")
     Article.objects.filter(author=author, pk=article_pk).update(status=1)
     categories = Topic.objects.filter(status=1)

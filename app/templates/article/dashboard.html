@@ -1,0 +1,56 @@
+{% extends 'article/base.html' %} {% block content %}
+
+<div class="container">
+    <div class="text-end">
+        <a href="{% url 'article_new' %}" class="btn btn-success">Start Writing</a>
+    </div>
+    {% if articles %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+      {% for article in articles %}
+      <div class="col">
+        <div class="card shadow-sm">
+          <img
+            style="height: 200px; object-fit: cover"
+            src="{{ base_url }}/media/{{ article.image }}"
+          />
+          <div class="card-body">
+            <p class="card-text">{{ article.title }}</p>
+            <div
+              class="d-flex justify-content-between align-items-center"
+            >
+              <div class="btn-group">
+                <a
+                  href="{% url 'article' article.slug %}"
+                  class="btn btn-sm btn-outline-secondary fw-bold"
+                >
+                  View
+                </a>
+                <a
+                  href="{{ base_url}}/articles/{{ article.id }}/edit/"
+                  class="btn btn-sm btn-outline-secondary fw-bold"
+                >
+                  Edit
+              </a>
+                  <a class="btn btn-sm btn-outline-secondary fw-bold" href="#">
+                    Unpublish
+                  </a>
+                
+              </div>
+              <small class="text-muted">9 mins</small>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %} {% else %}
+      <h5 class="title text-center">
+        You have not published any articles yet, once you do they will
+        appear here
+      </h5>
+      <div class="text-center bg-white">
+      
+      </div>
+    </div>
+    {% endif %}
+  </div>
+
+{% endblock %}

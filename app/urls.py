@@ -4,12 +4,14 @@ from . import views
 
 urlpatterns = [
     path("", views.home, name="home"),
+    path("topics/", views.all_topics, name="all_topics"),
+    path("topics/new/", views.topic_new, name="topic_new"),
     path("topics/<slug:slug>/", views.topics, name="topics"),
     path("articles/new/", views.article_new, name="article_new"),
-    path("articles/<int:pk>/", views.articles, name="articles"),
+    path("articles", views.articles, name="articles"),
     path("articles/<slug:slug>/", views.article, name="article"),
     path("articles/<int:pk>/edit/", views.article_edit, name="article_edit"),
-    path("drafts/<int:pk>/", views.drafts, name="drafts"),
+    path("drafts", views.drafts, name="drafts"),
     path(
         "drafts/<int:pk>/update/<int:article_pk>/",
         views.draft_publish,
@@ -23,4 +25,5 @@ urlpatterns = [
     path("terms-and-conditions/", views.terms, name="terms"),
     path("activate/<uidb64>/<token>/", views.activate, name="activate"),
     path("contact/", views.contact_view, name="contact"),
+    path("dashboard/", views.dashboard, name="dashboard")
 ]

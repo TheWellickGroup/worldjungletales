@@ -1,0 +1,110 @@
+{% extends 'writy/base.html' %} {% block content %}
+
+<div class="">
+  <main class="container">
+    {% if message %}
+    <div class="alert alert-success text-center">
+      <span class="title">{{ message }} &#128513; </span>
+    </div>
+    {% endif %}
+    <div class="row g-5 pt-4">
+      <div class="col-md-8 col-sm-12">
+        <div class="marketing">
+          {% if highlights %}
+          {% for highlight in highlights %}
+          <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+              <h2 class="featurette-heading fw-normal lh-1">
+                {{ highlight.title }}
+              </h2>
+            </div>
+            <div class="col-md-5 order-md-1">
+              <img src="{{base_url}}/media/{{ highlight.image }}" alt="{{ highlight.title }}"  class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto"
+              width="500"
+              height="500">
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+<hr>
+        {% if articles %} 
+        <div class="row g-3">
+          {% for article in articles %}
+          <div class="col">
+            <div class="card" >
+              <img src="{{base_url}}/media/{{ article.image }}" class="card-img-top" alt="{{ article.title }}" />
+              <div class="card-body">
+                <a href="{% url 'article' article.slug %} ">
+                  <p class="card-text">{{ article.title }}</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <br>
+          {% endfor %} 
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="col-md-4 col-sm-12">
+        <div class="position-sticky" style="top: 2rem">
+          <div class="p-4 mb-3 rounded">
+            <h5 class="title">About Author.</h5>
+            <hr />
+            <small class="mb-0">
+              Willis Benard is a conservationist by passion and profession, a
+              writer, an environmental educator and explorer who is passionate
+              about wildlife and the wild world.
+            </small>
+          </div>
+
+          <div class="p-4">
+            <h5 class="title">Archives</h5>
+            <hr />
+            <ol class="list-unstyled mb-0">
+              <li>
+                <a href="#" class="text-black">September </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">August </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">July </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">June </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">May </a>
+              </li>
+            </ol>
+          </div>
+
+          <div class="p-4">
+            <h5 class="title">Elsewhere</h5>
+            <hr />
+            <ol class="list-unstyled">
+              <li>
+                <a href="#" class="text-black">March </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">February </a>
+              </li>
+              <br />
+              <li>
+                <a href="#" class="text-black">January </a>
+              </li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+{% endblock %}
