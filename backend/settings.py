@@ -103,8 +103,6 @@ if os.getenv("ENV") == "development":
             "PASSWORD": os.getenv("DB_PASSWORD"),
             "HOST": "db.fnxcaerumzkazqxlkrum.supabase.co",
             "PORT": "5432"
-            # "ENGINE": "django.db.backends.sqlite3",
-            # "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 else:

@@ -13,7 +13,7 @@ urlpatterns = [
     path("articles/<int:pk>/edit/", views.article_edit, name="article_edit"),
     path("drafts", views.drafts, name="drafts"),
     path(
-        "drafts/<int:pk>/update/<int:article_pk>/",
+        "drafts/<int:article_pk>/",
         views.draft_publish,
         name="draft_publish",
     ),

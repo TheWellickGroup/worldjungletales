@@ -1,6 +1,10 @@
 {% extends 'article/base.html' %} {% block content %}
-      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <div class="album py-5 ">
+<div class="text-end">
+  <a href="{% url 'article_new' %}" class="btn btn-success">New Article</a>
+</div>
+<br>
+      <main class="">
+        <div class="album">
           <div class="container">
             {% if articles %}
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -28,7 +32,7 @@
                         </a>
 
                         <form
-                          action="{{ base_url }}/drafts/{{user.id}}/update/{{article.id}}/"
+                          action="{{ base_url }}/drafts/{{article.id}}/"
                           method="POST"
                         >
                           {% csrf_token %}

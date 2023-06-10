@@ -73,8 +73,8 @@ def error_500(request):
 
 def home(request):
     categories = Topic.objects.filter(status=1)
-    articles = Article.objects.filter(status=1)[:3]
-    latest = Article.objects.filter(status=1).order_by("-created_on")[:3]
+    articles = Article.objects.filter(status=1)
+    latest = Article.objects.filter(status=1).order_by("-created_on")
     recents = Article.objects.filter(status=1).order_by("-created_on")[:2]
     highlights = Article.objects.filter().order_by("created_on")[:1]
     context = {}
@@ -100,7 +100,7 @@ def topics(request, slug):
 # All articles for a given author
 
 
-def articles(request, pk):
+def articles(request):
     categories = Topic.objects.filter(status=1)
     author = request.user
     articles = Article.objects.filter(author=author, status=1).order_by("-created_on")
