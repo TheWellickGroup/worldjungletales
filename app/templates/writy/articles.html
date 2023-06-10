@@ -1,45 +1,39 @@
 {% extends 'writy/base.html' %} {% block content %}
 
-<main>
-  <div class="album py-2 ">
-    <div class="container">
-      {% if articles %}
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for article in articles %}
-        <div class="col">
-          <div class="card shadow-sm">
-            <img
-              style="height: 200px; object-fit: cover"
-              src="{{base_url}}/media/{{ article.image }}"
-            />
-            <div class="card-body">
-              <h2 class="title">{{ article.title | title }}</h2>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <a
-                    href="{% url 'article' article.slug %}"
-                    class="btn btn-sm btn-outline-secondary fw-bold"
-                  >
-                    Read more..
-                  </a>
+<main class="container h-90">
+  <div class="album p-4">
+    {% if articles %}
+    <div class="row">
+      {% for article in articles %}
+      <div class="col-md-4">
+        <div class="card shadow-sm">
+          <img
+            style="height: 200px !important; object-fit: cover"
+            src="{{base_url}}/media/{{ article.image }}"
+          />
+          <div class="card-body">
+            <h2 class="title">{{ article.title | title }}</h2>
+            <div class="text-end">
+              <div class="btn-group">
+                <a
+                  href="{% url 'article' article.slug %}"
+                  class="btn btn-sm btn-outline-secondary fw-bold"
+                >
+                  Read more..
+                </a>
               </div>
             </div>
           </div>
         </div>
-        {% endfor %} {% else %}
-        <h2 class="title text-center">
-          We could not find any articles for you to read {{ article.topic }}
-        </h2>
-        <div class="text-center bg-white">
-            <img
-            src="{{base_url}}/media/not_found.svg"
-            alt="not found"
-            class="img-fluid"
-          />
-        </div>
       </div>
-      {% endif %}
+      {% endfor %} {% else %}
+      <div class="text-center">
+        <h1>Oops!</h1>
+        <p>We could not find any articles for you to read {{ article.topic }}</p>
+      </div>
+ 
     </div>
+    {% endif %}
   </div>
 </main>
 

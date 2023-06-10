@@ -239,9 +239,8 @@ def comment(request, article_pk):
 
         form = CommentForm(request.POST)
         if form.is_valid():
-
             comment = form.save(commit=False)
-            comment.author = "guest"
+            comment.author = request.user
             comment.article = article
             comment.save()
             success = "your comment was posted!"
