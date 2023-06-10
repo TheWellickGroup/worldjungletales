@@ -9,18 +9,22 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+import os
+from dotenv import load_dotenv
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+project_folder = os.path.expanduser(BASE_DIR)  # adjust as appropriate
+load_dotenv(os.path.join(project_folder, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-2k19(%x!*vhpyya4$j=o!0lz)l6o0(8b5#+&4utd&ci)zox@3^"
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -95,7 +99,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "postgres",
         "USER": "postgres",
-        "PASSWORD": "QAJ7O3IVcb0ZVEPg",
+        "PASSWORD": os.getenv('DB_PASSWORD'),
         "HOST": "db.fnxcaerumzkazqxlkrum.supabase.co",
         "PORT": "5432"
         # "ENGINE": "django.db.backends.sqlite3",
@@ -148,8 +152,8 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = "587"
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "taleswildworld@gmail.com"
-EMAIL_HOST_PASSWORD = "mhtuybybpspebwye"
+EMAIL_HOST_USER = os.getenv('MAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('MAIL_PASSWORD')
 
 
 # Static files (CSS, JavaScript, Images)
