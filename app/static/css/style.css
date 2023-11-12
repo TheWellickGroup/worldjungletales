@@ -1,8 +1,27 @@
 body {
     background-color: #ffffff;
     color: #000101;
-    font-family: "Raleway", sans-serif !important;
+font-family: 'Space Grotesk', sans-serif !important;
   }
+
+    #page-container {
+      position: relative;
+      min-height: 100vh;
+    }
+  
+    #content-wrap {
+      padding-bottom: 2.5rem;
+      /* Footer height */
+    }
+  
+    #footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding-top: 20px;
+      /* height: 2.5rem; */
+      /* Footer height */
+    }
 
   .carousel {
     max-height: 440px;
@@ -73,7 +92,6 @@ body {
   }
 
   .blog .blog-details {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     padding: 30px;
     border-radius: 10px;
   }
