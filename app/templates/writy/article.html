@@ -31,30 +31,10 @@
               </li>
             </ul>
           </div>
-          <!-- End meta top -->
-
           <div class="content">
             {% autoescape off %} {{ article.content }} {% endautoescape %}
           </div>
-          <!-- End post content -->
-          <!-- 
-          <div class="meta-bottom">
-            <i class="bi bi-folder"></i>
-            <ul class="cats">
-              <li><a href="#">Business</a></li>
-            </ul>
-
-            <i class="bi bi-tags"></i>
-            <ul class="tags">
-              <li><a href="#">Creative</a></li>
-              <li><a href="#">Tips</a></li>
-              <li><a href="#">Marketing</a></li>
-            </ul>
-          </div> -->
-          <!-- End meta bottom -->
         </article>
-        <!-- End blog post -->
-
         <div class="comments">
           <h5 class="comments-count title">{{ comments|length }} Comments</h5>
           <div id="comment-4" class="comment">
@@ -72,7 +52,6 @@
                 <time datetime="2020-01-01">{{ comment.created_on }}</time>
                 <p>{{ comment.comment }}</p>
               </div>
-
               {% endfor %} {% else %}
               <br />
               <div class="comment-img">
@@ -95,8 +74,6 @@
             </div>
           </div>
         </div>
-        <!-- End comment #4 -->
-
         <div class="reply-form">
           <h5 class="title">Leave a Reply</h5>
           <small>
@@ -129,9 +106,7 @@
             <button type="submit" class="btn b_btn">Post Comment</button>
           </form>
         </div>
-        <!-- End blog comments -->
       </div>
-
       <div class="col-lg-4">
         <div class="sidebar-item recent-posts">
           <h5 class="sidebar-title">EXPLORE</h5>
@@ -158,11 +133,8 @@
           </div>
           {% endif %}
         </div>
-        <!-- End sidebar recent posts-->
-        <!-- End Blog Sidebar -->
       </div>
     </div>
   </div>
 </section>
-<!-- End Blog Details Section -->
 {% endblock %}
