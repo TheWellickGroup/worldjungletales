@@ -22,8 +22,8 @@ urlpatterns = [
     path("accounts/profile/", views.profile, name="profile"),
     path("subscribe/", views.subscribe, name="subscribe"),
     path("comment/<int:article_pk>/", views.comment, name="comment"),
-    path("terms-and-conditions/", views.terms, name="terms"),
+    path("privacy-policy/", views.terms, name="terms"),
     path("activate/<uidb64>/<token>/", views.activate, name="activate"),
-    path("contact/", views.contact_view, name="contact"),
+    path("contact-us/", views.contact_view, name="contact"),
     path("dashboard/", views.dashboard, name="dashboard")
 ]
