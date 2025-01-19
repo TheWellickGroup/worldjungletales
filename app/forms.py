@@ -1,13 +1,15 @@
+from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from django import forms
-from app.models import Article, Comment, Subscriber, Contact, Topic
+
+from app.models import Article, Comment, Contact, Subscriber, Topic
 
 
 class TopicForm:
     class Meta:
         model = Topic
-        fields = ("title")
+        fields = "title"
+
 
 class SignUpForm(UserCreationForm):
     class Meta:

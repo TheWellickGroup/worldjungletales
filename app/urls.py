@@ -25,5 +25,5 @@ urlpatterns = [
     path("privacy-policy/", views.terms, name="terms"),
     path("activate/<uidb64>/<token>/", views.activate, name="activate"),
     path("contact-us/", views.contact_view, name="contact"),
-    path("dashboard/", views.dashboard, name="dashboard")
+    path("dashboard/", views.dashboard, name="dashboard"),
 ]

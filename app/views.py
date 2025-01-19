@@ -1,20 +1,23 @@
-from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth import logout
-from app.models import Article, Topic, Subscriber, Comment
+from django.contrib.auth import get_user_model, logout
 from django.contrib.auth.models import User
-from .forms import ArticleForm, CommentForm, ContactForm, SignUpForm, SubscribeForm, TopicForm
-from django.contrib.auth import get_user_model
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.sites.shortcuts import get_current_site
+from django.core.mail import send_mail
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
 from django.utils.encoding import force_bytes
-from django.core.mail import send_mail
+from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
+
+from app.models import Article, Comment, Subscriber, Topic
+
+from .forms import (ArticleForm, CommentForm, ContactForm, SignUpForm,
+                    SubscribeForm, TopicForm)
 
 UserModel = get_user_model()
 
-# Dashboard 
+# Dashboard
+
 
 def dashboard(request):
     if request.method == "GET":
@@ -22,7 +25,6 @@ def dashboard(request):
         articles = Article.objects.filter().order_by("created_on").all()
         context["articles"] = articles
         return render(request, "article/dashboard.html", context)
-
 
 
 def all_topics(request):
@@ -37,7 +39,7 @@ def topic_new(request):
     context = {}
     if request.method == "GET":
         return render(request, "topic/create.html")
-    
+
     if request.method == "POST":
         form = TopicForm(request.data)
         if form.is_valid():
@@ -50,7 +52,8 @@ def topic_new(request):
 
     else:
         form = TopicForm()
-    return render(request, "topic/create.html", {"form": form})            
+    return render(request, "topic/create.html", {"form": form})
+
 
 # 404 Page
 
@@ -185,9 +188,9 @@ def article_edit(request, pk):
             article.save()
 
             pk = article.pk
-            context[
-                "success"
-            ] = "Successfuly edit of an article, Head over to your Articles"
+            context["success"] = (
+                "Successfuly edit of an article, Head over to your Articles"
+            )
             context["pk"] = pk
 
             return render(request, "article/edit.html", context)
@@ -394,9 +397,9 @@ def signup(request):
             )
 
             context = {}
-            context[
-                "message"
-            ] = "Please confirm your email address to complete the registration"
+            context["message"] = (
+                "Please confirm your email address to complete the registration"
+            )
             return render(request, "registration/confirm_email.html", context)
     else:
         form = SignUpForm()
@@ -419,9 +422,9 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.save()
 
-        context[
-            "message"
-        ] = "Thank you for your email confirmation. Now you can login your account."
+        context["message"] = (
+            "Thank you for your email confirmation. Now you can login your account."
+        )
         return render(request, "registration/login.html", context)
 
     else:

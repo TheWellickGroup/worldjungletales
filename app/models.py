@@ -1,10 +1,7 @@
-from django.db import models
 from django.contrib.auth.models import User
+from django.db import models
 
 STATUS = ((0, "Draft"), (1, "Publish"))
-
-
-# Create your models here.
 
 
 class Topic(models.Model):

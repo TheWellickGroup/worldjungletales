@@ -1,0 +1,58 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+    -   id: trailing-whitespace
+        description: This hook trims trailing whitespace.
+    -   id: end-of-file-fixer
+        description: This hook makes sure files end in a newline and only a newline..
+    -   id: check-merge-conflict
+        description: This hook checks for files that contain merge conflict strings.
+    -   id: check-docstring-first
+        description: This hook checks for a common error of placing code before the
+          docstring.
+    -   id: debug-statements
+        description: This hook checks for debugger imports and py37+ breakpoint()
+          calls in python source.
+    -   id: no-commit-to-branch
+        description: This hook protects specific branches from direct checkins.
+        args: [--branch, staging, --branch, master, --branch, develop]
+    -   id: requirements-txt-fixer
+        description: This hook sorts entries in requirements.txt and removes incorrect
+          entry for pkg-resources==0.0.0.
+    -   id: detect-private-key
+        description: This hook checks for the existence of private keys.
+    -   id: check-added-large-files
+        description: This hook prevents giant files from being committed.
+        args: ['--maxkb=5000']
+
+-   repo: https://github.com/commitizen-tools/commitizen
+    rev: v3.29.0
+    hooks:
+    -   id: commitizen
+        description: This hook checks commit messages for conventional commits formatting.
+        stages: [commit-msg]
+
+
+-   repo: https://github.com/psf/black-pre-commit-mirror
+    rev: 24.8.0
+    hooks:
+    -   id: black
+        description: The uncompromising Python code formatter.
+        language_version: python3.12
+
+-   repo: https://github.com/pycqa/isort
+    rev: 5.13.2
+    hooks:
+    -   id: isort
+        description: This hook sorts imports.
+        name: isort (python)
+
+-   repo: https://github.com/gitleaks/gitleaks
+    rev: v8.19.1
+    hooks:
+    -   id: gitleaks
+        description: This hook detects and prevents hardcoded secrets like passwords,
+          api keys, and tokens in git repos.

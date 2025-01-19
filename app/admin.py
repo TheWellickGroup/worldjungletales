@@ -1,6 +1,6 @@
 from django.contrib import admin
-from app.models import Article, Comment, Contact, Subscriber, Topic
 
+from app.models import Article, Comment, Contact, Subscriber, Topic
 
 # Register your models here.
 
