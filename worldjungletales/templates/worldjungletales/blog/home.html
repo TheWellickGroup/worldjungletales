@@ -1,0 +1,167 @@
+{% extends 'worldjungletales/blog/base.html' %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="container mt-5">
+  <div class="d-flex justify-content-center align-items-center text-center py-5 bg-dark text-white rounded">
+    <div>
+      <h1 class="display-4 fw-bold mb-3">Explore the Wonders of Nature</h1>
+      <p class="lead mx-auto">Discover incredible stories from the world's wildest places</p>
+    </div>
+  </div>
+</div>
+
+<!-- Main Content -->
+<main class="container py-5">
+  <div class="row">
+    <!-- Articles Column -->
+    <div class="col-lg-8">
+      <h2 class="h4 fw-bold mb-4">Latest Stories</h2>
+      <div class="row g-4">
+        {% if articles %}
+        {% for article in articles %}
+        <div class="col-md-6">
+          <div class="card text-white bg-dark border-secondary">
+            <div class="card-img-top position-relative"
+              style="background-image: url('{{ article.image_url }}'); height: 200px; background-size: cover; background-position: center;">
+              <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-gradient">
+                <span class="badge bg-success">{{ article.topic }}</span>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">
+                <a href="{% url 'article' article.slug %}" class="stretched-link text-white text-decoration-none">{{
+                  article.title }}</a>
+              </h5>
+              <div class="d-flex justify-content-between small mt-3">
+                <span class="text-muted">{{ article.created_on }}</span>
+                <a href="{% url 'article' article.slug %}" class="text-success text-decoration-none">Read More →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div class="col-12 text-center py-4">
+          <p>No articles found. Check back soon for exciting stories from the wild!</p>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="mt-5 text-center">
+        <button class="btn btn-outline-success">Load More</button>
+      </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="col-lg-4 mt-4 mt-lg-0">
+      <div class="sticky-top" style="top: 100px;">
+        <!-- Featured Categories -->
+        <div class="mb-4">
+          <h3 class="h5 fw-bold mb-3">Explore Categories</h3>
+          <div class="row g-2">
+            <div class="col-6">
+              <a href="#" class="btn btn-dark w-100">Rainforests</a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-warning w-100 text-white">Safari</a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-primary w-100">Marine Life</a>
+            </div>
+            <div class="col-6">
+              <a href="#" class="btn btn-danger w-100">Endangered</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="card bg-dark text-white mb-4 border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Join Our Newsletter</h5>
+            <p class="card-text">Get the latest updates about wildlife conservation and nature stories.</p>
+            <form>
+              <input type="email" class="form-control mb-2" placeholder="Your email address">
+              <button class="btn btn-success w-100">Subscribe Now</button>
+            </form>
+          </div>
+        </div>
+
+        <!-- Conservation Status -->
+        <div class="card bg-dark text-white border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Conservation Status</h5>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between">
+                <span>Tiger</span>
+                <span class="badge bg-danger">Endangered</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-danger" style="width: 30%;"></div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between">
+                <span>Gorilla</span>
+                <span class="badge bg-danger">Critically Endangered</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-danger" style="width: 15%;"></div>
+              </div>
+            </div>
+            <div class="mb-3">
+              <div class="d-flex justify-content-between">
+                <span>Sea Turtle</span>
+                <span class="badge bg-warning text-dark">Vulnerable</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar bg-warning" style="width: 45%;"></div>
+              </div>
+            </div>
+            <a href="#" class="d-block text-center mt-3 text-success">Learn how to help →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- Info Cards -->
+<div class="bg-dark text-white py-5 mt-5">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <div class="h3 text-success mb-3">🌴</div>
+            <h5 class="card-title">Discover Ecosystems</h5>
+            <p class="card-text">Explore the diverse habitats sustaining Earth's wildlife from dense rainforests to vast
+              savannahs.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <div class="h3 text-success mb-3">🐾</div>
+            <h5 class="card-title">Track Wildlife</h5>
+            <p class="card-text">Follow the latest scientific discoveries about animal behavior and migration patterns.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card bg-dark border-secondary h-100">
+          <div class="card-body">
+            <div class="h3 text-success mb-3">🌍</div>
+            <h5 class="card-title">Support Conservation</h5>
+            <p class="card-text">Learn about global initiatives protecting endangered species and preserving natural
+              habitats.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

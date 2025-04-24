@@ -20,7 +20,7 @@ junitxml_report/report.xml
 notebooks/.ipynb_checkpoints/*
 static/grappelli/
 static/grappeli/*
-static/*
+static/
 notebooks
 staticfiles/
 
@@ -36,6 +36,6 @@ staticfiles/
 !.coveragerc
 
 gcloud_creds.json
-env.sh
+env.*
 .testmondata
 .mise.toml
