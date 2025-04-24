@@ -16,15 +16,12 @@ deprecation==2.1.0
 distlib==0.3.9
 Django==5.2
 django-allauth==65.7.0
+django-allauth-themes==0.1.2
 django-classy-tags==4.1.0
-django-cms==4.1.6
 django-cors-headers==4.0.0
 django-formtools==2.5.1
 django-grappelli==4.0.1
 django-sekizai==4.1.0
-django-treebeard==4.7.1
-djangocms-admin-style==3.3.1
-djangorestframework-simplejwt==5.2.2
 filelock==3.16.1
 frozenlist==1.6.0
 gotrue==2.12.0

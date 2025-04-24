@@ -1,0 +1,159 @@
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Tuffy', sans-serif;
+            background-image:
+                radial-gradient(circle at 25% 25%, rgba(0, 90, 40, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 75% 75%, rgba(0, 130, 60, 0.1) 0%, transparent 40%);
+            min-height: 100vh;
+            padding-top: 20px;
+        }
+
+        .auth-container {
+            max-width: 550px;
+            margin: 2rem auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+
+        .btn-primary {
+            background-color: #008040;
+            border-color: #007035;
+        }
+
+        .btn-primary:hover {
+            background-color: #006030;
+            border-color: #005025;
+        }
+
+        .card {
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-control:focus {
+            border-color: #28a745;
+            box-shadow: 0 0 0 0.25rem rgba(40, 167, 69, 0.25);
+        }
+
+        .page-title {
+            color: #006030;
+            margin-bottom: 1.5rem;
+            font-weight: bold;
+        }
+
+        .errorlist {
+            color: #dc3545;
+            list-style-type: none;
+            padding-left: 0;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Make social login buttons look nice */
+        .socialaccount_providers {
+            padding: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 1rem 0;
+        }
+
+        .socialaccount_provider {
+            display: block;
+            text-align: center;
+            padding: 8px 16px;
+            border-radius: 4px;
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+        }
+
+        .socialaccount_provider.google {
+            background-color: #4285F4;
+        }
+
+        .socialaccount_provider.facebook {
+            background-color: #3b5998;
+        }
+
+        /* Custom alert styling */
+        .alert {
+            border-radius: 8px;
+        }
+
+        /* Make form elements look better */
+        form p {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+    </style>
+    <title>
+        {% block head_title %}{% endblock head_title %} | World Jungle Tales
+    </title>
+    {% block extra_head %}{% endblock extra_head %}
+</head>
+
+<body>
+    <div class="container">
+        {% block body %}
+        {% if messages %}
+        <div class="row my-4">
+            <div class="col">
+                {% for message in messages %}
+                <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %} alert-dismissible fade show"
+                    role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="auth-container">
+            {% block content %}{% endblock content %}
+        </div>
+        {% endblock body %}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
+        crossorigin="anonymous"></script>
+
+    {% block extra_body %}{% endblock extra_body %}
+</body>
+
+</html>

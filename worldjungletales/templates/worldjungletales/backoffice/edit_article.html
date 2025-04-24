@@ -7,14 +7,6 @@
         <div class="alert alert-danger">
           <span class="title">{{ form.errors }} </span>
         </div>
-        {% endif %} {% if success %}
-        <div class="alert alert-success text-center">
-          <span class="title"
-            >{{ success }}
-            <a href="{% url 'articles' user.id %}" class="fw-bold"
-              ><i class="bi bi-arrow-right-square"></i></a
-          ></span>
-        </div>
         {% endif %}
       </div>
       <div class="text-center">
@@ -25,13 +17,12 @@
           enctype="multipart/form-data"
         >
           {% csrf_token %}
-
           <div class="form-group">
-            <label class="form-label">Article Title</label>
+            <label class="form-label" for="title">Article Title</label>
             <input
               type="text"
               class="form-control"
-              id="floatingInput"
+              id="title"
               name="title"
               value="{{ article.title }}"
             />
@@ -40,40 +31,36 @@
           <div class="row">
             <div class="col">
               <div class="form-group">
-                <label class="form-label">Article cover</label>
+                <label class="form-label" for="image_url">Article cover</label>
                 <input
                   type="file"
                   class="form-control"
-                  id="image"
-                  name="image"
-                  value="{{ article.image }}"
+                  accept="image/*"
+                  id="image_url"
+                  name="image_url"
+                  value="{{ article.image_url }}"
                 />
               </div>
             </div>
             <div class="col">
               <div class="form-group">
-                <label class="form-label">Article Topic</label>
+                <label class="form-label" for="topic">Article Topic</label>
                 <select
                   name="topic"
+                  id="topic"
                   class="form-control"
-                  value="{{ article.topic }}"
+                  required
                 >
-                  {% if article.topic %}
-                  <option value="{{ article.topic }}">
-                    {{ article.topic }}
-                  </option>
-                  {% else %}
                   <option value="">--Select Topic-</option>
-                  {% endif %} {% for topic in topics %}
-                  <option value="{{ topic.id }}">
-                    {{ topic.title }}
+                 {% for topic in topics %}
+                  <option value="{{ topic }}" {% if topic == article.topic %}selected{% endif %}>
+                    {{ topic }}
                   </option>
                   {% endfor %}
                 </select>
               </div>
             </div>
           </div>
-
           <br />
           <textarea
             name="content"
@@ -81,15 +68,9 @@
             cols="30"
             rows="10"
             class="form-control"
-            value="{{ article.content }}"
-          ></textarea>
-          <div class="alert alert-info">
-            <span class="text-info">
-              Its even better to draft on a PC <i class="bi bi-check"></i
-            ></span>
-          </div>
+          >{{ article.content }}</textarea>
           <br />
-          <button class="w-100 btn b_btn" type="submit">SAVE EDIT</button>
+          <button class="w-100 btn btn-success" type="submit">UPDATE</button>
         </form>
       </div>
     </main>
