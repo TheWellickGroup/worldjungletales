@@ -1,6 +1,6 @@
-from allauth.account.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import get_user_model
+from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404, render
 
 from common.constants import ARTICLE_IMAGES_BUCKET
@@ -12,7 +12,7 @@ from .forms import ArticleForm, TopicForm
 UserModel = get_user_model()
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def backoffice(request):
     context = {}
     articles = Article.objects.all()
@@ -20,7 +20,7 @@ def backoffice(request):
     return render(request, "worldjungletales/backoffice/dashboard.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def all_topics(request):
     context = {}
     topics = Topic.objects.all()
@@ -28,7 +28,7 @@ def all_topics(request):
     return render(request, "worldjungletales/backoffice/topics.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def topic_new(request):
     context = {}
     if request.method == "POST":
@@ -50,7 +50,7 @@ def topic_new(request):
     )
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def articles(request):
     topics = Topic.objects.filter(status=1)
     articles = Article.objects.filter(author=request.user, status=1)
@@ -61,7 +61,7 @@ def articles(request):
     return render(request, "worldjungletales/backoffice/articles.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def article_new(request):
     context = {}
     topics = Topic.objects.filter(status=1)
@@ -73,10 +73,8 @@ def article_new(request):
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
-            article.slug = article.title.replace(" ", "-")
-
-            if "image" in request.FILES:
-                image = request.FILES["image"]
+            if "image_url" in request.FILES:
+                image = request.FILES["image_url"]
                 try:
                     image_url = upload_to_supabase_bucket(ARTICLE_IMAGES_BUCKET, image)
                     article.image_url = image_url
@@ -90,30 +88,37 @@ def article_new(request):
                 request, "Succcessfuly Posted an article, Head over to publish!"
             )
             return render(
-                request, "worldjungletales/backoffice/new_article.html", context
+                request, "worldjungletales/backoffice/draft_articles.html", context
             )
         else:
             context["form"] = ArticleForm()
-
     return render(request, "worldjungletales/backoffice/new_article.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def article_edit(request, pk):
     context = {}
     topics = Topic.objects.filter(status=1)
-    article = get_object_or_404(Article, pk=pk)
+    article = get_object_or_404(Article, pk=pk, author=request.user)
     context["article"] = article
     context["topics"] = topics
 
     if request.method == "POST":
-        form = ArticleForm(request.POST, request.FILES, instance=article)
+        form = ArticleForm(request.POST, instance=article)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
-            article.slug = article.title.replace(" ", "-")
-            article.save()
+            if "image_url" in request.FILES:
+                image = request.FILES["image_url"]
+                try:
+                    image_url = upload_to_supabase_bucket(ARTICLE_IMAGES_BUCKET, image)
+                    article.image_url = image_url
+                except Exception as e:
+                    messages.warning(
+                        request, f"Failed to upload image {image.name}: {str(e)}"
+                    )
 
+            article.save()
             pk = article.pk
             messages.success(
                 request, "Successfuly edit of an article, Head over to your Articles"
@@ -130,7 +135,7 @@ def article_edit(request, pk):
     return render(request, "worldjungletales/backoffice/edit_article.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def drafts(request):
     author = request.user
     articles = Article.objects.filter(author=author, status=0)
@@ -142,7 +147,7 @@ def drafts(request):
     return render(request, "worldjungletales/backoffice/draft_articles.html", context)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def draft_publish(request, article_pk):
     author = request.user
     articles = Article.objects.filter(author=author, status=0)

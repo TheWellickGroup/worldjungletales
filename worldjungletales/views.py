@@ -10,9 +10,12 @@ UserModel = get_user_model()
 
 
 def comment(request, article_pk):
+    context = {}
     if request.method == "POST":
         article = get_object_or_404(Article, pk=article_pk)
         topics = Topic.objects.filter(status=1)
+        context["article"] = article
+        context["topics"] = topics
 
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -29,14 +32,10 @@ def comment(request, article_pk):
             )
 
     else:
-
         form = CommentForm()
+        context["form"] = form
 
-    return render(
-        request,
-        "worldjungletales/blog/article.html",
-        {"article": article, "topics": topics, "form": form},
-    )
+    return render(request, "worldjungletales/blog/article.html", context)
 
 
 def subscribe(request):

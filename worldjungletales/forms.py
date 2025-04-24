@@ -6,22 +6,22 @@ from worldjungletales.models import Article, Comment, Subscriber, Topic
 class TopicForm:
     class Meta:
         model = Topic
-        fields = "title"
+        fields = "__all__"
 
 
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = ("title", "topic", "content")
+        fields = "__all__"
 
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ("comment",)
+        fields = "__all__"
 
 
 class SubscribeForm(forms.ModelForm):
     class Meta:
         model = Subscriber
-        fields = ("email",)
+        fields = "__all__"

@@ -41,11 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.admin",
+    "worldjungletales",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
-    "worldjungletales",
 ]
 
 MIDDLEWARE = [
@@ -62,23 +62,12 @@ MIDDLEWARE = [
     "allauth.account.middleware.AccountMiddleware",
 ]
 
-REST_FRAMEWORK = {
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
-    ],
-    "DEFAULT_PERMISSION_CLASSES": [
-        "rest_framework.permissions.DjangoModelPermissions",
-        "rest_framework.permissions.IsAdminUser",
-    ],
-}
-
-
 ROOT_URLCONF = "config.urls"
 
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR / "templates"],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -190,7 +179,12 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
+SOCIALACCOUNT_EMAIL_AUTHENTICATION_AUTO_CONNECT = True
 SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
+ACCOUNT_ALLOW_REGISTRATION = False
+# Why its uses my templates
+ACCOUNT_TEMPLATE_EXTENSION = "html"
 
 SITE_ID = 2
 

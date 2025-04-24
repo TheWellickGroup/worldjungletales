@@ -407,7 +407,10 @@
           <form action="{% url 'comment' article.id %}" method="POST">
             {% csrf_token %}
             <div class="row">
-              <div class="col form-group">
+              <div class="col-md-12 form-group mb-3">
+                <input type="email" name="email" class="form-control" placeholder="Your Email" required />
+              </div>
+              <div class="col-md-12 form-group">
                 <textarea name="comment" class="form-control" rows="5"
                   placeholder="Write your comment here..."></textarea>
               </div>
