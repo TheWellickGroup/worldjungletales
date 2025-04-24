@@ -103,7 +103,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": os.getenv("DB_NAME", "worldjungletales"),
         "USER": os.getenv("DB_USER", "worldjungletales_user"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "worldjungletales_pass"),
+        "PASSWORD": os.getenv("DB_PASS", "worldjungletales_pass"),
         "HOST": os.getenv("DB_HOST", "localhost"),
         "PORT": int(os.getenv("DB_PORT", 5432)),
     }

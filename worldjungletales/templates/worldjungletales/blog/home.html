@@ -30,8 +30,9 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">
-                <a href="{% url 'article' article.slug %}" class="stretched-link text-white text-decoration-none">{{
-                  article.title }}</a>
+                <a
+                  href="{% url 'article' article.slug %}"
+                  class="stretched-link text-white text-decoration-none">{{ article.title }}</a>
               </h5>
               <div class="d-flex justify-content-between small mt-3">
                 <span class="text-muted">{{ article.created_on }}</span>
