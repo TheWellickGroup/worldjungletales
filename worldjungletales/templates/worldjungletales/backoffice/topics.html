@@ -1,0 +1,209 @@
+{% extends 'worldjungletales/backoffice/base.html' %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2><i class="fas fa-leaf me-2" style="color: var(--jungle-green);"></i>Wildlife Topics</h2>
+  <a href="{% url 'topic_new' %}" class="btn btn-primary">
+    <i class="fas fa-plus me-2"></i>Add New Topic
+  </a>
+</div>
+
+<div class="row mb-4">
+  <div class="col-md-6">
+    <div class="input-group">
+      <span class="input-group-text bg-light border-end-0">
+        <i class="bi bi-search"></i>
+      </span>
+      <input type="text" class="form-control border-start-0" placeholder="Search topics...">
+    </div>
+  </div>
+  <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
+    <div class="btn-group">
+      <button type="button" class="btn btn-outline-primary active">
+        <i class="bi bi-grid-3x3-gap me-1"></i>Grid
+      </button>
+      <button type="button" class="btn btn-outline-primary">
+        <i class="bi bi-list me-1"></i>List
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="album py-2">
+  <div class="container-fluid p-0">
+    {% if topics %}
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+      {% for topic in topics %}
+      <div class="col">
+        <div class="card h-100 border-0 shadow-sm topic-card">
+          <div class="card-body">
+            <div class="d-flex align-items-center mb-3">
+              {% if topic.icon %}
+              <i class="{{ topic.icon }} fa-2x me-3" style="color: var(--jungle-green);"></i>
+              {% else %}
+              <i class="fas fa-paw fa-2x me-3" style="color: var(--jungle-green);"></i>
+              {% endif %}
+              <h5 class="card-title mb-0">{{ topic.title }}</h5>
+            </div>
+            <p class="card-text text-muted">
+              {% if topic.description %}
+              {{ topic.description|truncatechars:120 }}
+              {% else %}
+              A collection of articles about {{ topic.title }} and related wildlife subjects.
+              {% endif %}
+            </p>
+
+            <div class="d-flex justify-content-between align-items-center mt-3">
+              <span class="badge bg-light text-dark">
+                <i class="bi bi-file-text me-1"></i>
+                {{ topic.article_count|default:"0" }} articles
+              </span>
+              <small class="text-muted">Created {{ topic.created_at|date:"M d, Y"|default:"recently" }}</small>
+            </div>
+
+            <hr class="my-3">
+
+            <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                <a href="{% url 'topics' topic.slug %}" class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-eye me-1"></i>View
+                </a>
+                <a href="{% url 'article_edit' article.id %}" class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-pencil me-1"></i>Edit
+                </a>
+                <a class="btn btn-sm btn-outline-danger" href="#">
+                  <i class="bi bi-trash me-1"></i>Delete
+                </a>
+              </div>
+              <a href="#" class="text-decoration-none text-primary">
+                <i class="bi bi-plus-circle me-1"></i>New Article
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state text-center py-5">
+      <div class="empty-state-icon mb-4">
+        <i class="fas fa-tags" style="font-size: 4rem; color: var(--jungle-green); opacity: 0.3;"></i>
+      </div>
+      <h4>Organize Your Wildlife Stories</h4>
+      <p class="text-muted">Create topics to group your articles by species, habitats, or regions.</p>
+      <a href="{% url 'topic_new' %}" class="btn btn-primary mt-3">
+        <i class="fas fa-plus me-2"></i>Create Your First Topic
+      </a>
+      <div class="mt-5">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="card border-0 bg-light">
+              <div class="card-body p-4">
+                <h5 class="mb-3">Topic Suggestions</h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-cat" style="font-size: 1.5rem; color: var(--earth-brown);"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-0">Big Cats</h6>
+                        <small>Lions, tigers, leopards</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-water" style="font-size: 1.5rem; color: var(--sky-blue);"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-0">Marine Life</h6>
+                        <small>Ocean ecosystems</small>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="d-flex align-items-center">
+                      <div class="flex-shrink-0">
+                        <i class="fas fa-tree" style="font-size: 1.5rem; color: var(--jungle-green);"></i>
+                      </div>
+                      <div class="flex-grow-1 ms-3">
+                        <h6 class="mb-0">Rainforests</h6>
+                        <small>Tropical ecosystems</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  :root {
+    --jungle-green: #2E8B57;
+    --leaf-dark: #1e5631;
+    --earth-brown: #8B4513;
+    --sunlight-yellow: #F4D03F;
+    --sky-blue: #5DADE2;
+    --bark-brown: #5D4037;
+    --jungle-highlight: #7CB342;
+  }
+
+  .topic-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .topic-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background: linear-gradient(to right, var(--jungle-green), var(--sunlight-yellow));
+  }
+
+  .topic-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  .btn-primary {
+    background-color: var(--jungle-green);
+    border-color: var(--jungle-green);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--leaf-dark);
+    border-color: var(--leaf-dark);
+  }
+
+  .btn-outline-primary {
+    color: var(--jungle-green);
+    border-color: var(--jungle-green);
+  }
+
+  .btn-outline-primary:hover,
+  .btn-outline-primary.active {
+    background-color: var(--jungle-green);
+    border-color: var(--jungle-green);
+    color: white;
+  }
+
+  .empty-state {
+    background-color: #fff;
+    border-radius: 12px;
+    padding: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  }
+</style>
+{% endblock %}

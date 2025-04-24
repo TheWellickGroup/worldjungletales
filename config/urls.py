@@ -16,17 +16,31 @@ Including another URLconf
 
 from django.conf.urls.static import static
 from django.contrib import admin
+from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path
 
-# Static files
-from . import settings
+from common.sitemap import (StaticViewSitemap, TopicSiteMap,
+                            WorldJungleTalesSiteMap)
+from config import settings
+
+sitemaps = {
+    "articles": WorldJungleTalesSiteMap,
+    "topics": TopicSiteMap,
+    "static": StaticViewSitemap,
+}
 
 urlpatterns = [
-    # API for other apps
-    path("", include("app.urls")),
+    path("", include("worldjungletales.urls")),
+    path("grappelli/", include("grappelli.urls")),
     path("admin/", admin.site.urls),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path("accounts/", include("allauth.urls")),
+    path(
+        "sitemap.xml",
+        sitemap,
+        {"sitemaps": sitemaps},
+        name="django.contrib.sitemaps.views.sitemap",
+    ),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-handler404 = "app.views.error_404"
-handler500 = "app.views.error_500"
+handler404 = "worldjungletales.views.error_404"
+handler500 = "worldjungletales.views.error_500"

@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow: /admin/
+Disallow: /accounts/
+Disallow: /backoffice/
+Allow: /
+Sitemap: https://worldjungletales.com/sitemap.xml
