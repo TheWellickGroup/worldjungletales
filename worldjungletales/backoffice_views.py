@@ -1,10 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from common.constants import ARTICLE_IMAGES_BUCKET
-from common.supabase import upload_to_supabase_bucket
+from common.supabase import StorageClient
 from worldjungletales.models import Article, Topic
 
 from .forms import ArticleForm, TopicForm
@@ -64,8 +63,6 @@ def articles(request):
 @user_passes_test(lambda u: u.is_superuser)
 def article_new(request):
     context = {}
-    topics = Topic.objects.filter(status=1)
-    context["topics"] = topics
     context["form"] = ArticleForm()
 
     if request.method == "POST":
@@ -73,65 +70,43 @@ def article_new(request):
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
-            if "image_url" in request.FILES:
-                image = request.FILES["image_url"]
-                try:
-                    image_url = upload_to_supabase_bucket(ARTICLE_IMAGES_BUCKET, image)
-                    article.image_url = image_url
-                except Exception as e:
-                    messages.warning(
-                        request, f"Failed to upload image {image.name}: {str(e)}"
-                    )
-
+            s = StorageClient()
+            article.image_url = s.upload_article_cover(request)
             article.save()
-            messages.success(
-                request, "Succcessfuly Posted an article, Head over to publish!"
-            )
-            return render(
-                request, "worldjungletales/backoffice/draft_articles.html", context
-            )
+            messages.success(request, "Succcessfuly Posted an article.")
+            return redirect("drafts")
         else:
-            context["form"] = ArticleForm()
+            context["form"] = form
+            messages.error(request, "An error occurred! Please fix the errors below!")
+
+    topics = Topic.objects.filter(status=1)
+    context["topics"] = topics
     return render(request, "worldjungletales/backoffice/new_article.html", context)
 
 
 @user_passes_test(lambda u: u.is_superuser)
 def article_edit(request, pk):
-    context = {}
-    topics = Topic.objects.filter(status=1)
-    article = get_object_or_404(Article, pk=pk, author=request.user)
-    context["article"] = article
-    context["topics"] = topics
+    old_article = get_object_or_404(Article, pk=pk, author=request.user)
 
     if request.method == "POST":
-        form = ArticleForm(request.POST, instance=article)
+        form = ArticleForm(request.POST, instance=old_article)
         if form.is_valid():
             article = form.save(commit=False)
             article.author = request.user
-            if "image_url" in request.FILES:
-                image = request.FILES["image_url"]
-                try:
-                    image_url = upload_to_supabase_bucket(ARTICLE_IMAGES_BUCKET, image)
-                    article.image_url = image_url
-                except Exception as e:
-                    messages.warning(
-                        request, f"Failed to upload image {image.name}: {str(e)}"
-                    )
-
+            s = StorageClient()
+            article.image_url = s.upload_article_cover(request, old_article.image_url)
             article.save()
-            pk = article.pk
-            messages.success(
-                request, "Successfuly edit of an article, Head over to your Articles"
-            )
-            context["pk"] = pk
-            return render(
-                request, "worldjungletales/backoffice/edit_article.html", context
-            )
-
+            messages.success(request, "Successfully edited the article!")
+            return redirect("drafts")
     else:
-        form = ArticleForm(instance=article)
-        context["form"] = form
+        form = ArticleForm(instance=old_article)
 
+    topics = Topic.objects.filter(status=1)
+    context = {
+        "form": form,
+        "article": old_article,
+        "topics": topics,
+    }
     return render(request, "worldjungletales/backoffice/edit_article.html", context)
 
 
@@ -157,4 +132,4 @@ def draft_publish(request, article_pk):
     context["articles"] = articles
     context["topics"] = topics
 
-    return render(request, "worldjungletales/backoffice/draft_articles.html", context)
+    return redirect("drafts")
