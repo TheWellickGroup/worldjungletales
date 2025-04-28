@@ -195,12 +195,6 @@
           <hr class="w-100 bg-light opacity-25">
           <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start align-items-sm-start w-100" id="menu">
             <li class="nav-item w-100">
-              <a href="/" class="nav-link">
-                <i class="bi bi-house-fill"></i>
-                <span class="ms-1 d-none d-sm-inline">Visit Site</span>
-              </a>
-            </li>
-            <li class="nav-item w-100">
               <a href="{% url 'backoffice' %}" class="nav-link">
                 <i class="bi bi-speedometer2"></i>
                 <span class="ms-1 d-none d-sm-inline">Dashboard</span>
@@ -228,6 +222,12 @@
               <a href="{% url 'article_new' %}" class="nav-link">
                 <i class="bi bi-pencil-square"></i>
                 <span class="ms-1 d-none d-sm-inline">Create New</span>
+              </a>
+            </li>
+            <li class="nav-item w-100">
+              <a href="/" class="nav-link">
+                <i class="bi bi-house-fill"></i>
+                <span class="ms-1 d-none d-sm-inline">Visit Site</span>
               </a>
             </li>
             <hr />
@@ -293,39 +293,6 @@
           ["insert", ["link", "picture", "video"]],
           ["view", ["fullscreen", "codeview", "help"]],
         ],
-      });
-
-      // Region chart initialization
-      const regionCtx = document.getElementById('regionChart').getContext('2d');
-      const regionChart = new Chart(regionCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['North America', 'Asia', 'Europe', 'Africa', 'South America', 'Oceania'],
-          datasets: [{
-            data: [35, 20, 18, 12, 10, 5],
-            backgroundColor: [
-              '#2E8B57',
-              '#F4D03F',
-              '#5DADE2',
-              '#E67E22',
-              '#8E44AD',
-              '#16A085'
-            ],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: {
-              position: 'bottom',
-              labels: {
-                boxWidth: 12
-              }
-            }
-          }
-        }
       });
     });
   </script>

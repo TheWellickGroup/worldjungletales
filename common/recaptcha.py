@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Recaptcha:
     def __init__(self):
-        if not settings.RECAPTCHA_SECRET_KEY or settings.RECAPTCHA_SITE_KEY:
+        if not (settings.RECAPTCHA_SECRET_KEY or settings.RECAPTCHA_SITE_KEY):
             raise ValueError(
                 "RECAPTCHA_SECRET_KEY and RECAPTCHA_SITE_KEY must be provided!"
             )

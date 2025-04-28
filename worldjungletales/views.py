@@ -1,10 +1,11 @@
+import requests
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect, render
 
 from common.recaptcha import Recaptcha
 from worldjungletales.forms import CommentForm, SubscribeForm
-from worldjungletales.models import Article, Comment, Topic
+from worldjungletales.models import Article, ArticleView, Comment, Topic
 
 UserModel = get_user_model()
 
@@ -54,16 +55,12 @@ def subscribe(request):
 
         if form.is_valid():
             form.save()
-            topics = Topic.objects.filter(status=1)
-            context = {}
-            context["message"] = "You have now part of the Scratch family, Thank you!"
-            context["topics"] = topics
-            return render(request, "worldjungletales/blog/home.html", context)
+            return redirect("home")
 
-        else:
-            form = SubscribeForm()
+    else:
+        form = SubscribeForm()
 
-    return render(request, "worldjungletales/blog/home.html")
+    return redirect("home")
 
 
 def terms(request):
@@ -83,10 +80,13 @@ def error_500(request):
 
 def home(request):
     topics = Topic.objects.filter(status=1)
-    articles = Article.objects.filter(status=1).order_by("-updated_on")
+    qs = Article.objects.filter(status=1).order_by("-updated_on")
+    if q := request.GET.get("q"):
+        qs = qs.filter(title__icontains=q)
+
     context = {}
     context["topics"] = topics
-    context["articles"] = articles
+    context["articles"] = qs[:8]
 
     return render(request, "worldjungletales/blog/home.html", context)
 
@@ -103,18 +103,56 @@ def topics(request, slug):
     )
 
 
+def track_article_view(request, article):
+    x_forwarded_for = request.META.get("HTTP_X_FORWARDED_FOR")
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(",")[0]
+    else:
+        ip = request.META.get("REMOTE_ADDR")
+
+    if not request.session.session_key:
+        request.session.save()
+    session_id = request.session.session_key
+
+    geo_data = {}
+    try:
+        response = requests.get(f"https://ipinfo.io/{ip}/json", timeout=3)
+        if response.status_code == 200:
+            geo_data = response.json()
+    except requests.RequestException:
+        pass
+
+    ArticleView.objects.create(
+        article=article,
+        ip_address=ip,
+        user_agent=request.META.get("HTTP_USER_AGENT", ""),
+        referrer=request.META.get("HTTP_REFERER", ""),
+        session_id=session_id,
+        region=geo_data.get("region"),
+        country=geo_data.get("country"),
+        city=geo_data.get("city"),
+    )
+
+
 def article(request, slug):
     article = get_object_or_404(Article, slug=slug)
-    topics = Topic.objects.filter(status=1)
-    comments = Comment.objects.filter(article=article).all()
-    recent = Article.objects.filter(status=1)[:4]
 
-    context = {}
-    context["article"] = article
-    context["topics"] = topics
-    context["comments"] = comments
-    context["recents"] = recent
-    context["RECAPTCHA_SITE_KEY"] = settings.RECAPTCHA_SITE_KEY
+    # Track views only if the visitor is NOT the article author (admin)
+    if not request.user.is_authenticated or request.user != article.author:
+        track_article_view(request, article)
+
+    topics = Topic.objects.filter(status=1)
+    comments = Comment.objects.filter(article=article)
+    recent = Article.objects.filter(status=1).order_by("-created_on")[:4]
+
+    context = {
+        "article": article,
+        "topics": topics,
+        "comments": comments,
+        "recents": recent,
+        "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY,
+    }
+
     return render(
         request,
         "worldjungletales/blog/article.html",

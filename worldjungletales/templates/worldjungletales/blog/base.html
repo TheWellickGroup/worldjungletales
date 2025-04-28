@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap"
     rel="stylesheet">
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     body {
       font-family: 'Tuffy', sans-serif;
@@ -214,7 +214,7 @@
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark sticky-top py-3">
       <div class="container">
-        <a href="#" class="navbar-brand fs-3 fw-bold">
+        <a href="{% url 'home' %}" class="navbar-brand fs-3 fw-bold">
           <span class="text-success">World</span>
           <span>Jungle</span>
           <span class="text-success">Tales</span>
@@ -241,10 +241,13 @@
           {% if request.user.is_authenticated %}
           <a href="{% url 'backoffice' %}" class="text-white rounded-pill">Dashboard</a>
           {% else %}
-          <div class="d-flex align-items-center gap-3">
-            <input type="text" placeholder="Search..." class="form-control search-bar d-none d-md-block text-white">
-            <button class="btn btn-subscribe text-white rounded-pill px-4">Search</button>
-          </div>
+          <form action="{ url 'home'}">
+            <div class="d-flex align-items-center gap-3">
+              <input type="text" placeholder="Search..." class="form-control search-bar d-none d-md-block text-white"
+                name="q" id="q">
+              <button class="btn btn-subscribe text-white rounded-pill px-4" type="submit">Search</button>
+            </div>
+          </form>
           {% endif %}
         </div>
       </div>
@@ -272,9 +275,9 @@
             <p class="text-secondary mb-3">Bringing you closer to nature with stories from the world's wildest places.
             </p>
             <div class="d-flex gap-3">
-              <a href="#" class="text-secondary"><i class="fab fa-twitter"></i></a>
-              <a href="#" class="text-secondary"><i class="fab fa-instagram"></i></a>
-              <a href="#" class="text-secondary"><i class="fab fa-youtube"></i></a>
+              <a href="https://x.com/worldjungletales" target="_blank" class="text-secondary"><i class="fab fa-twitter"></i></a>
+              <a href="https://instagram.com/worldjungletales" target="_blank" class="text-secondary"><i class="fab fa-instagram"></i></a>
+              <a href="https://youtube.com/worldjungletales" target="_blank" class="text-secondary"><i class="fab fa-youtube"></i></a>
             </div>
           </div>
 
@@ -295,21 +298,21 @@
             <h3 class="h5 fw-bold mb-3 text-white">Latest Updates</h3>
             <p class="text-secondary mb-3">Subscribe to our monthly newsletter for the latest discoveries and
               conservation news.</p>
-            <form class="d-flex">
-              <input type="email" placeholder="Email"
-                class="form-control bg-dark border-success text-white rounded-0 rounded-start">
+            <form class="d-flex" action="{% url 'subscribe'%}" method="post">
+              {% csrf_token %}
+              <input type="email" placeholder="Email" id="email" name="email"
+                class="form-control bg-dark border-success text-white rounded-0 rounded-start text-white">
               <button class="btn btn-success rounded-0 rounded-end">Go</button>
             </form>
           </div>
         </div>
 
         <div class="border-top border-dark mt-4 pt-4 text-center text-secondary">
-          <p>© 2025 World Jungle Tales. All rights reserved.</p>
+          <p>© 2025 <a href="https://limitgroup.com" target="_blank" class="text-white text-decoration-none">World Jungle Tales</a>. All rights reserved.</p>
         </div>
       </div>
     </footer>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </body>
-
 </html>

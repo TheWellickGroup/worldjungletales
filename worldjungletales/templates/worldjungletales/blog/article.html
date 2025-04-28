@@ -1,13 +1,6 @@
 {% extends 'worldjungletales/blog/base.html' %}
 {% block content %}
 <style>
-  body {
-    background-color: #0a0f0d;
-    color: #e0e0e0;
-    background-image:
-      radial-gradient(circle at 25% 25%, rgba(0, 90, 40, 0.1) 0%, transparent 40%),
-      radial-gradient(circle at 75% 75%, rgba(0, 130, 60, 0.1) 0%, transparent 40%);
-  }
 
   .article-header {
     position: relative;
@@ -340,16 +333,20 @@
             <div class="meta-top">
               <ul>
                 <li>
-                  <i class="bi bi-person"></i>
+                  <i class="bi bi-person text-white"></i>
                   {{ article.author }}
                 </li>
                 <li>
-                  <i class="bi bi-clock"></i>
+                  <i class="bi bi-clock text-white"></i>
                   <time>{{ article.created_on }}</time>
                 </li>
                 <li>
-                  <i class="bi bi-chat-dots"></i>
+                  <i class="bi bi-chat-dots text-white"></i>
                   {{ comments|length }} Comments
+                </li>
+                <li>
+                  <i class="bi bi-eye text-white"></i>
+                  {{ article.views_count}} Views
                 </li>
               </ul>
             </div>
@@ -424,8 +421,7 @@
 
               <div class="col-md-12 form-group">
                 <p class="text-center">Please complete the CAPTCHA to verify that you're not a robot.</p>
-                <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}" data-theme="light"
-                  data-size="normal">
+                <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}" data-theme="light" data-size="normal">
                 </div>
                 {% if form.errors %}
                 <div class="invalid-feedback">
@@ -489,7 +485,7 @@
               </div>
             </div>
 
-            <a href="#" class="d-inline-block mt-2 text-green-400 hover:text-green-300">Learn how to contribute →</a>
+            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-inline-block mt-2 text-green-400 hover:text-green-300">Learn how to contribute →</a>
           </div>
         </div>
 
@@ -498,19 +494,19 @@
           <h3 class="sidebar-title">POPULAR TAGS</h3>
           <div class="mt-4">
             <div class="d-flex flex-wrap gap-2">
-              <a href="#"
+              <a href="/?q=Rainforest"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Rainforest</a>
-              <a href="#"
+              <a href="/?q=wildlife"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Wildlife</a>
-              <a href="#"
+              <a href="/?q=conservation"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Conservation</a>
-              <a href="#"
+              <a href="/?q=biodiversity"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Biodiversity</a>
-              <a href="#"
+              <a href="/?q=endangered"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Endangered</a>
-              <a href="#"
+              <a href="/?q=ecosystem"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Ecosystem</a>
-              <a href="#"
+              <a href="/?q=sustainable"
                 class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Sustainable</a>
             </div>
           </div>
