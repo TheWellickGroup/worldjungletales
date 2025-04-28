@@ -234,14 +234,17 @@
             </li>
             {% endfor %}
             <li class="nav-item">
-              <a href="{% url 'terms'%}" class="nav-link text-light">About</a>
+              <a href="{% url 'about'%}" class="nav-link text-light">About</a>
             </li>
           </ul>
-
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'backoffice' %}" class="text-white rounded-pill">Dashboard</a>
+          {% else %}
           <div class="d-flex align-items-center gap-3">
-            <input type="text" placeholder="Search..." class="form-control search-bar d-none d-md-block">
-            <button class="btn btn-subscribe text-white rounded-pill px-4">Subscribe</button>
+            <input type="text" placeholder="Search..." class="form-control search-bar d-none d-md-block text-white">
+            <button class="btn btn-subscribe text-white rounded-pill px-4">Search</button>
           </div>
+          {% endif %}
         </div>
       </div>
     </nav>
@@ -277,11 +280,13 @@
           <div class="col-md-4 mb-4 mb-md-0">
             <h3 class="h5 fw-bold mb-3 text-white">Quick Links</h3>
             <ul class="list-unstyled">
-              <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
+              <li class="mb-2"><a href="{% url 'about' %}" class="text-secondary text-decoration-none">About Us</a></li>
               <li class="mb-2"><a href="{% url  'terms' %}" class="text-secondary text-decoration-none">Privacy
                   Policy</a></li>
-              <li class="mb-2"><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
-              <li><a href="#" class="text-secondary text-decoration-none">Contribute</a></li>
+              <li class="mb-2"><a href="mailto: info@worldjungletales.com" target="_blank"
+                  class="text-secondary text-decoration-none">Contact</a></li>
+              <li><a href="https://buymeacoffee.com/worldjungletales" target="_blank"
+                  class="text-secondary text-decoration-none">Contribute</a></li>
             </ul>
           </div>
 
