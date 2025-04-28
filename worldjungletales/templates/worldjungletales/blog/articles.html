@@ -2,14 +2,6 @@
 {% block content %}
 
 <style>
-  body {
-    background-color: #0a0f0d;
-    color: #e0e0e0;
-    background-image:
-      radial-gradient(circle at 25% 25%, rgba(0, 90, 40, 0.1) 0%, transparent 40%),
-      radial-gradient(circle at 75% 75%, rgba(0, 130, 60, 0.1) 0%, transparent 40%);
-  }
-
   .topic-heading {
     position: relative;
     padding-bottom: 1rem;
@@ -156,17 +148,21 @@
   {% if articles %}
   <div class="article-grid">
     {% for article in articles %}
+
     <div class="article-card">
       <div class="image-container">
         <img class="article-image" src="{{ article.image_url }}" alt="{{ article.title }}" />
       </div>
       <div class="card-body">
-        <h2 class="article-title">{{ article.title | title }}</h2>
+        <a href="{% url 'article' article.slug %}" class="text-decoration-none">
+          <h2 class="article-title">{{ article.title | title }}</h2>
+        </a>
         <a href="{% url 'article' article.slug %}" class="read-more-btn">
           Read more
         </a>
       </div>
     </div>
+
     {% endfor %}
   </div>
   {% else %}

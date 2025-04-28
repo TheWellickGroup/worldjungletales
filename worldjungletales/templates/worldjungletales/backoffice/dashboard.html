@@ -11,8 +11,8 @@
       <div class="card-body text-center">
         <i class="fas fa-eye mb-3" style="font-size: 2rem; color: var(--jungle-green);"></i>
         <h5 class="card-title">Article Views</h5>
-        <h2 class="mb-0">1,248</h2>
-        <small class="text-success"><i class="bi bi-arrow-up me-1"></i>12% from last week</small>
+        <h2 class="mb-0">{{ article_views_count }}</h2>
+        <small class="text-success"><i class="bi bi-arrow-up me-1"></i>{{ article_view_pc_change }}% from last week</small>
       </div>
     </div>
   </div>
@@ -38,11 +38,11 @@
   </div>
 
   <!-- Recent articles -->
-  <div class="col-md-8">
+  <div class="col-md-12">
     <div class="card h-100">
       <div class="card-header d-flex justify-content-between align-items-center">
         <h5 class="mb-0">Recent Articles</h5>
-        <a href="#" class="btn btn-sm btn-outline-primary">View All</a>
+        <a href="{% url 'articles' %}" class="btn btn-sm btn-outline-primary">View All</a>
       </div>
       <div class="card-body">
         <div class="list-group list-group-flush">
@@ -61,7 +61,8 @@
   </div>
 
   <!-- Analytics summary -->
-  <div class="col-md-4">
+  <!-- Region chart -->
+  <div class="col-md-6">
     <div class="card h-100">
       <div class="card-header">
         <h5 class="mb-0">Readership by Region</h5>
@@ -70,6 +71,19 @@
         <canvas id="regionChart" height="240"></canvas>
       </div>
     </div>
+  </div>
+
+  <!-- Views chart -->
+  <div class="col-md-6">
+    <div class="card h-100">
+      <div class="card-header">
+        <h5 class="mb-0">Article Views Over Time</h5>
+      </div>
+      <div class="card-body">
+        <canvas id="viewsChart" height="240"></canvas>
+      </div>
+    </div>
+  </div>
   </div>
 
   <!-- Quick draft -->
@@ -93,6 +107,66 @@
     </div>
   </div>
 </div>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Region chart
+    const regionCtx = document.getElementById('regionChart').getContext('2d');
+    const regionChart = new Chart(regionCtx, {
+      type: 'doughnut',
+      data: {
+        labels: [{% for item in views_by_region %}'{{ item.country }}',{% endfor %}],
+    datasets: [{
+      data: [{% for item in views_by_region %}{{ item.count }}, {% endfor %}],
+    backgroundColor: [
+    '#2E8B57', '#F4D03F', '#5DADE2', '#E67E22', '#8E44AD', '#16A085',
+    '#7D3C98', '#A569BD', '#5499C7', '#48C9B0'
+  ],
+    borderWidth: 0
+        }]
+      },
+    options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          boxWidth: 12
+        }
+      }
+    }
+  }
+    });
 
+  // Views over time chart
+  const viewsCtx = document.getElementById('viewsChart').getContext('2d');
+  const viewsChart = new Chart(viewsCtx, {
+    type: 'line',
+    data: {
+      labels: [{% for item in views_by_date %}'{{ item.created_on|date:"M d" }}',{% endfor %}],
+  datasets: [{
+    label: 'Views',
+    data: [{% for item in views_by_date %}{{ item.count }}, {% endfor %}],
+    borderColor: '#2E8B57',
+      backgroundColor: 'rgba(46, 139, 87, 0.1)',
+        tension: 0.3,
+          fill: true
+        }]
+      },
+  options: {
+    responsive: true,
+      maintainAspectRatio: false,
+        scales: {
+      y: {
+        beginAtZero: true,
+          ticks: {
+          precision: 0
+        }
+      }
+    }
+  }
+    });
+  });
+</script>
 
 {% endblock %}

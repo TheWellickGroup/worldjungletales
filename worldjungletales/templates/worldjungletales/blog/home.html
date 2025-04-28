@@ -62,16 +62,16 @@
           <h3 class="h5 fw-bold mb-3">Explore Categories</h3>
           <div class="row g-2">
             <div class="col-6">
-              <a href="#" class="btn btn-dark w-100">Rainforests</a>
+              <a href="/?q=Rainforests" class="btn btn-dark w-100">Rainforests</a>
             </div>
             <div class="col-6">
-              <a href="#" class="btn btn-warning w-100 text-white">Safari</a>
+              <a href="/?=Safari" class="btn btn-warning w-100 text-white">Safari</a>
             </div>
             <div class="col-6">
-              <a href="#" class="btn btn-primary w-100">Marine Life</a>
+              <a href="/?q=Marine" class="btn btn-primary w-100">Marine Life</a>
             </div>
             <div class="col-6">
-              <a href="#" class="btn btn-danger w-100">Endangered</a>
+              <a href="/?q=Endangered" class="btn btn-danger w-100">Endangered</a>
             </div>
           </div>
         </div>
@@ -81,9 +81,10 @@
           <div class="card-body">
             <h5 class="card-title">Join Our Newsletter</h5>
             <p class="card-text">Get the latest updates about wildlife conservation and nature stories.</p>
-            <form>
-              <input type="email" class="form-control mb-2" placeholder="Your email address">
-              <button class="btn btn-success w-100">Subscribe Now</button>
+            <form action="{% url 'subscribe'%}" method="post">
+              {% csrf_token %}
+              <input type="email" class="form-control mb-2" placeholder="Your email address" id="email" name="email">
+              <button class="btn btn-success w-100" type="submit">Subscribe Now</button>
             </form>
           </div>
         </div>
@@ -119,7 +120,7 @@
                 <div class="progress-bar bg-warning" style="width: 45%;"></div>
               </div>
             </div>
-            <a href="#" class="d-block text-center mt-3 text-success">Learn how to help →</a>
+            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-block text-center mt-3 text-success">Learn how to help →</a>
           </div>
         </div>
       </div>

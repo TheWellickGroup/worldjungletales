@@ -1,11 +1,14 @@
+from datetime import timedelta
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 
 from common.supabase import StorageClient
-from worldjungletales.models import Article, Comment, Topic
+from worldjungletales.models import Article, ArticleView, Comment, Topic
 
 from .forms import ArticleForm, TopicForm
 
@@ -25,11 +28,59 @@ def backoffice(request):
     today_start = timezone.now().date()
     today_comment_count = comments_qs.filter(created_on__date=today_start).count()
 
+    views_qs = ArticleView.objects.all()
+    article_views_count = views_qs.count()
+    today = timezone.now().date()
+
+    start_of_this_week = today - timedelta(days=today.weekday())
+    start_of_last_week = start_of_this_week - timedelta(days=7)
+    end_of_last_week = start_of_this_week - timedelta(seconds=1)
+
+    this_week_views_qs = ArticleView.objects.filter(
+        created_on__date__gte=start_of_this_week
+    )
+    last_week_views_qs = ArticleView.objects.filter(
+        created_on__date__range=(start_of_last_week, end_of_last_week)
+    )
+
+    this_week_count = this_week_views_qs.count()
+    last_week_count = last_week_views_qs.count()
+
+    if last_week_count == 0:
+        percentage_change = 100  # 100% growth if last week had 0 views
+    else:
+        percentage_change = (
+            (this_week_count - last_week_count) / last_week_count
+        ) * 100
+
+    # Views by date (last 30 days)
+    thirty_days_ago = timezone.now() - timedelta(days=30)
+    views_by_date = (
+        views_qs.filter(article__in=qs, created_on__gte=thirty_days_ago)
+        .extra({"date": "date(created_on)"})
+        .values("date")
+        .annotate(count=Count("id"))
+        .order_by("date")
+    )
+
+    # Views by region  # Top 10 countries
+    views_by_region = (
+        views_qs.filter(article__in=qs)
+        .exclude(country__isnull=True)
+        .values("country")
+        .annotate(count=Count("id"))
+        .order_by("-count")[:10]
+    )
+
     context["articles"] = qs[:5]
     context["published_count"] = published_count
     context["comments_count"] = comments_count
     context["today_comment_count"] = today_comment_count
     context["topics_count"] = topics_count
+    context["article_views_count"] = article_views_count
+    context["article_view_pc_change"] = percentage_change
+    context["views_by_region"] = views_by_region
+    context["views_by_date"] = views_by_date
     return render(request, "worldjungletales/backoffice/dashboard.html", context)
 
 
