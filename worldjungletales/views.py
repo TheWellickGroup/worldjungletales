@@ -9,6 +9,13 @@ from worldjungletales.models import Article, Comment, Topic
 UserModel = get_user_model()
 
 
+def about(request):
+    ctx = {}
+    topics = Topic.objects.filter(status=1)
+    ctx["topics"] = topics
+    return render(request, "worldjungletales/blog/about.html", ctx)
+
+
 def comment(request, article_pk):
     context = {}
     if request.method == "POST":

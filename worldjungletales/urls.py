@@ -10,6 +10,7 @@ urlpatterns = [
     path("subscribe/", views.subscribe, name="subscribe"),
     path("comment/<int:article_pk>/", views.comment, name="comment"),
     path("privacy-policy/", views.terms, name="terms"),
+    path("about/", views.about, name="about"),
     path(
         "robots.txt",
         TemplateView.as_view(
