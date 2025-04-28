@@ -1,7 +1,5 @@
 from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
-from django.views.decorators.csrf import csrf_exempt
 
 from worldjungletales.forms import CommentForm, SubscribeForm
 from worldjungletales.models import Article, Comment, Topic
@@ -30,12 +28,11 @@ def comment(request, article_pk):
             comment.author = request.user
             comment.article = article
             comment.save()
-            success = "your comment was posted!"
 
             return render(
                 request,
                 "worldjungletales/blog/article.html",
-                {"article": article, "topics": topics, "success": success},
+                {"article": article, "topics": topics},
             )
 
     else:
@@ -68,12 +65,6 @@ def terms(request):
     return render(request, "worldjungletales/blog/terms.html", {"topics": topics})
 
 
-@csrf_exempt
-def google_one_tap_login(request):
-    login_url = request.build_absolute_uri("/accounts/google/login/")
-    return HttpResponseRedirect(login_url)
-
-
 def error_404(request, exception):
     topics = Topic.objects.filter(status=1)
     return render(request, "worldjungletales/blog/404.html", {"topics": topics})
@@ -86,16 +77,10 @@ def error_500(request):
 
 def home(request):
     topics = Topic.objects.filter(status=1)
-    articles = Article.objects.filter(status=1)
-    latest = Article.objects.filter(status=1)
-    recents = Article.objects.filter(status=1)[:2]
-    highlights = Article.objects.filter().order_by("created_on")[:1]
+    articles = Article.objects.filter(status=1).order_by("-updated_on")
     context = {}
     context["topics"] = topics
     context["articles"] = articles
-    context["latests"] = latest
-    context["recents"] = recents
-    context["highlights"] = highlights
 
     return render(request, "worldjungletales/blog/home.html", context)
 
@@ -103,7 +88,7 @@ def home(request):
 def topics(request, slug):
     topics = Topic.objects.filter(status=1)
     topic = get_object_or_404(Topic, slug=slug)
-    articles = Article.objects.filter(topic=topic, status=1)
+    articles = Article.objects.filter(topic=topic, status=1).order_by("-updated_on")
 
     return render(
         request,

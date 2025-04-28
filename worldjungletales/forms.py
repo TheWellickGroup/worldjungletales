@@ -3,7 +3,7 @@ from django import forms
 from worldjungletales.models import Article, Comment, Subscriber, Topic
 
 
-class TopicForm:
+class TopicForm(forms.ModelForm):
     class Meta:
         model = Topic
         fields = "__all__"
@@ -12,7 +12,7 @@ class TopicForm:
 class ArticleForm(forms.ModelForm):
     class Meta:
         model = Article
-        fields = "__all__"
+        fields = ["title", "topic", "content"]
 
 
 class CommentForm(forms.ModelForm):

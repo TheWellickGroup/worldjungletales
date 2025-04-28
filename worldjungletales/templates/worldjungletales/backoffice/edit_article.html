@@ -1,81 +1,66 @@
-{% extends 'worldjungletales/backoffice/base.html' %} {% block content %}
-<div class="container-fluid">
-  <div class="">
-    <main class="">
-      <div class="container">
-        {% if form.errors %}
-        <div class="alert alert-danger">
-          <span class="title">{{ form.errors }} </span>
-        </div>
-        {% endif %}
-      </div>
-      <div class="text-center">
-        <h3 class="title">You are editing an article</h3>
-        <form
-          action="{% url 'article_edit' article.id %}"
-          method="POST"
-          enctype="multipart/form-data"
-        >
-          {% csrf_token %}
-          <div class="form-group">
-            <label class="form-label" for="title">Article Title</label>
-            <input
-              type="text"
-              class="form-control"
-              id="title"
-              name="title"
-              value="{{ article.title }}"
-            />
-          </div>
-          <br />
-          <div class="row">
-            <div class="col">
-              <div class="form-group">
-                <label class="form-label" for="image_url">Article cover</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  accept="image/*"
-                  id="image_url"
-                  name="image_url"
-                  value="{{ article.image_url }}"
-                />
-              </div>
-            </div>
-            <div class="col">
-              <div class="form-group">
-                <label class="form-label" for="topic">Article Topic</label>
-                <select
-                  name="topic"
-                  id="topic"
-                  class="form-control"
-                  required
-                >
-                  <option value="">--Select Topic-</option>
-                 {% for topic in topics %}
-                  <option value="{{ topic }}" {% if topic == article.topic %}selected{% endif %}>
-                    {{ topic }}
-                  </option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
-          </div>
-          <br />
-          <textarea
-            name="content"
-            id="summernote"
-            cols="30"
-            rows="10"
-            class="form-control"
-          >{{ article.content }}</textarea>
-          <br />
-          <button class="w-100 btn btn-success" type="submit">UPDATE</button>
-        </form>
-      </div>
-    </main>
-  </div>
-  <br />
-</div>
+{% extends 'worldjungletales/backoffice/base.html' %}
 
+{% block content %}
+<div class="container-fluid">
+    <div class="text-center">
+      <h3 class="title">You are editing an article</h3>
+      <form action="{% url 'article_edit' article.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="title">Article Title</label>
+          <input type="text" class="form-control {% if form.title.errors %}is-invalid{% endif %}" id="title"
+            name="title" value="{{ form.title.value|default:article.title }}" />
+          {% for error in form.title.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group mb-3">
+              <label class="form-label" for="image">Article Cover</label>
+              <input type="file" class="form-control {% if form.image.errors %}is-invalid{% endif %}"
+                accept="image/*" id="image" name="image" />
+              {% if article.image_url %}
+              <small>Current Image: <a href="{{ article.image_url }}" target="_blank">View</a></small>
+              {% endif %}
+              {% for error in form.image_url.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+          </div>
+
+          <div class="col">
+            <div class="form-group mb-3">
+              <label class="form-label" for="topic">Article Topic</label>
+              <select name="topic" id="topic" class="form-control {% if form.topic.errors %}is-invalid{% endif %}"
+                required>
+                <option value="">--Select Topic--</option>
+                {% for topic in topics %}
+                <option value="{{ topic.id }}" {% if form.topic.value == topic.id|stringformat:"s" or article.topic.id == topic.id %} selected {% endif %}>
+                  {{ topic.title }}
+                </option>
+                {% endfor %}
+              </select>
+              {% for error in form.topic.errors %}
+              <div class="invalid-feedback">{{ error }}</div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group mb-3">
+          <label class="form-label" for="content">Article Content</label>
+          <textarea name="content" id="summernote" cols="30" rows="10"
+            class="form-control {% if form.content.errors %}is-invalid{% endif %}">{{ form.content.value|default:article.content }}</textarea>
+          {% for error in form.content.errors %}
+          <div class="invalid-feedback">{{ error }}</div>
+          {% endfor %}
+        </div>
+
+        <button class="w-100 btn btn-success" type="submit">UPDATE</button>
+      </form>
+    </div>
+</div>
 {% endblock %}
