@@ -403,30 +403,42 @@
             </div>
             {% endif %}
           </div>
-
           <form action="{% url 'comment' article.id %}" method="POST">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-12 form-group mb-3">
-                <input type="email" name="email" class="form-control" placeholder="Your Email" required />
+                <input type="email" name="email" class="form-control {% if form.email.errors %}is-invalid{% endif %}"
+                  placeholder="Your Email" required value="{{ form.email.value|default:'' }}" />
                 {% for error in form.email.errors %}
                 <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
               </div>
+
               <div class="col-md-12 form-group">
-                <textarea name="comment" class="form-control" rows="5"
-                id="comment"
-                  placeholder="Write your comment here..."></textarea>
+                <textarea name="comment" class="form-control {% if form.comment.errors %}is-invalid{% endif %}" rows="5"
+                  id="comment" placeholder="Write your comment here...">{{ form.comment.value|default:'' }}</textarea>
                 {% for error in form.comment.errors %}
                 <div class="invalid-feedback">{{ error }}</div>
                 {% endfor %}
               </div>
-            </div>
 
+              <div class="col-md-12 form-group">
+                <p class="text-center">Please complete the CAPTCHA to verify that you're not a robot.</p>
+                <div class="g-recaptcha" data-sitekey="{{ RECAPTCHA_SITE_KEY }}" data-theme="light"
+                  data-size="normal">
+                </div>
+                {% if form.errors %}
+                <div class="invalid-feedback">
+                  <p>{{ form.non_field_errors }}</p>
+                </div>
+                {% endif %}
+              </div>
+            </div>
             <div class="text-end mt-4">
               <button type="submit" class="b_btn">Post Comment</button>
             </div>
           </form>
+
         </div>
       </div>
 
