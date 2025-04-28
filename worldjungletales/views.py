@@ -1,6 +1,8 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
+from common.recaptcha import Recaptcha
 from worldjungletales.forms import CommentForm, SubscribeForm
 from worldjungletales.models import Article, Comment, Topic
 
@@ -15,12 +17,16 @@ def about(request):
 
 
 def comment(request, article_pk):
-    context = {}
+    article = get_object_or_404(Article, pk=article_pk)
+    topics = Topic.objects.filter(status=1)
+
     if request.method == "POST":
-        article = get_object_or_404(Article, pk=article_pk)
-        topics = Topic.objects.filter(status=1)
-        context["article"] = article
-        context["topics"] = topics
+        recaptcha_response = request.POST.get("g-recaptcha-response")
+        r = Recaptcha()
+        result = r.verify(recaptcha_response)
+
+        if not result:
+            return redirect("article", slug=article.slug)
 
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -28,16 +34,16 @@ def comment(request, article_pk):
             comment.author = request.user
             comment.article = article
             comment.save()
-
-            return render(
-                request,
-                "worldjungletales/blog/article.html",
-                {"article": article, "topics": topics},
-            )
-
+            return redirect("article", slug=article.slug)
     else:
         form = CommentForm()
-        context["form"] = form
+
+    context = {
+        "article": article,
+        "topics": topics,
+        "form": form,
+        "RECAPTCHA_SITE_KEY": settings.RECAPTCHA_SITE_KEY,
+    }
 
     return render(request, "worldjungletales/blog/article.html", context)
 
@@ -108,6 +114,7 @@ def article(request, slug):
     context["topics"] = topics
     context["comments"] = comments
     context["recents"] = recent
+    context["RECAPTCHA_SITE_KEY"] = settings.RECAPTCHA_SITE_KEY
     return render(
         request,
         "worldjungletales/blog/article.html",

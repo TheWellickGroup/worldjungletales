@@ -2,9 +2,10 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
+from django.utils import timezone
 
 from common.supabase import StorageClient
-from worldjungletales.models import Article, Topic
+from worldjungletales.models import Article, Comment, Topic
 
 from .forms import ArticleForm, TopicForm
 
@@ -14,8 +15,21 @@ UserModel = get_user_model()
 @user_passes_test(lambda u: u.is_superuser)
 def backoffice(request):
     context = {}
-    articles = Article.objects.all()
-    context["articles"] = articles
+    qs = Article.objects.all()
+    published_count = qs.filter(status=1).count()
+    topics_count = Topic.objects.count()
+
+    comments_qs = Comment.objects.all()
+    comments_count = comments_qs.count()
+
+    today_start = timezone.now().date()
+    today_comment_count = comments_qs.filter(created_on__date=today_start).count()
+
+    context["articles"] = qs[:5]
+    context["published_count"] = published_count
+    context["comments_count"] = comments_count
+    context["today_comment_count"] = today_comment_count
+    context["topics_count"] = topics_count
     return render(request, "worldjungletales/backoffice/dashboard.html", context)
 
 
