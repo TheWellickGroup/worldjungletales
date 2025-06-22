@@ -28,6 +28,7 @@ DEBUG = os.getenv("DEBUG", True)
 ALLOWED_HOSTS = [
     "worldjungletales.com",
     "www.worldjungletales.com",
+    "worldjungletales.onrender.com",
     "127.0.0.1",
 ]
 
