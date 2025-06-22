@@ -25,7 +25,11 @@ SECRET_KEY = os.getenv("SECRET_KEY", "django-insecure-4@#&*^@!$%&*")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv("DEBUG", True)
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "worldjungletales.com",
+    "www.worldjungletales.com",
+    "127.0.0.1",
+]
 
 # CORS_ORIGIN_WHITELIST = [
 #     'http://localhost:3000',
