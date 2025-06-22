@@ -28,6 +28,9 @@ class Topic(AbstractBaseModel):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("topics", args=[str(self.slug)])
+
 
 class Article(AbstractBaseModel):
     title = models.CharField(max_length=200, unique=True)
