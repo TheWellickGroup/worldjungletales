@@ -9,7 +9,7 @@ class WorldJungleTalesSiteMap(Sitemap):
         return Article.objects.all()
 
     def lastmod(self, obj):
-        return obj.updated_at
+        return obj.updated_on
 
 
 class TopicSiteMap(Sitemap):
@@ -17,7 +17,7 @@ class TopicSiteMap(Sitemap):
         return Topic.objects.all()
 
     def lastmod(self, obj):
-        return obj.updated_at
+        return obj.updated_on
 
 
 class StaticViewSitemap(Sitemap):
