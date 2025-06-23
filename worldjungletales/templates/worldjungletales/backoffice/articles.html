@@ -41,8 +41,8 @@
           <div class="card-body">
             <h5 class="card-title">{{ article.title }}</h5>
             <p class="card-text text-muted small">
-              {% if article.excerpt %}
-              {{ article.excerpt|truncatechars:100 }}
+              {% if article.content %}
+              {% autoescape off %} {{ article.content|truncatechars:100 }} {% endautoescape %}
               {% else %}
               Explore the fascinating world of wildlife through this captivating article...
               {% endif %}
@@ -65,9 +65,12 @@
                 <a href="{% url 'article_edit' article.id %}" class="btn btn-sm btn-outline-primary">
                   <i class="bi bi-pencil me-1"></i>Edit
                 </a>
-                <a class="btn btn-sm btn-outline-danger" href="#">
-                  <i class="bi bi-archive me-1"></i>Unpublish
-                </a>
+                <form action="{% url 'unpublish' article.id %}" method="post">
+                  {% csrf_token %}
+                  <button class="btn btn-sm btn-outline-danger" type="submit">
+                    <i class="bi bi-archive me-1"></i>Un Publish
+                  </button>
+                </form>
               </div>
               <div class="text-muted d-flex align-items-center small">
                 <i class="bi bi-clock me-1"></i>

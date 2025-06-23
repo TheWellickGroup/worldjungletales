@@ -34,4 +34,9 @@ urlpatterns = [
         backoffice_views.draft_publish,
         name="draft_publish",
     ),
+    path(
+        "backoffice/articles/<int:article_pk>/",
+        backoffice_views.unpublish,
+        name="unpublish",
+    ),
 ]

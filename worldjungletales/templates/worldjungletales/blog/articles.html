@@ -76,11 +76,9 @@
     font-weight: 600;
     font-size: 1.25rem;
     line-height: 1.4;
-    color: #ffffff;
   }
 
   .read-more-btn {
-    color: white;
     border: none;
     border-radius: 30px;
     padding: 0.5rem 1.5rem;
@@ -100,12 +98,9 @@
   }
 
   .empty-state {
-    background: rgba(16, 26, 22, 0.7);
     backdrop-filter: blur(10px);
-    border-radius: 8px;
     padding: 3rem;
     text-align: center;
-    border: 1px solid rgba(30, 200, 100, 0.1);
   }
 
   .empty-state h2 {
@@ -135,35 +130,36 @@
   }
 </style>
 
-<main class="container items-center py-5">
-  <h1 class="topic-heading">{% if topic %}{{ topic | upper }}{% else %}ALL ARTICLES{% endif %}</h1>
-
+<main class="container items-center py-3">
+  <h2 class="h4 fw-bold mb-4">Latest Stories {% if topic %} in {{ topic}} {% endif %}</h2>
   {% if articles %}
   <div class="article-grid">
     {% for article in articles %}
-
-    <div class="article-card">
-      <div class="image-container">
-        <img class="article-image" src="{{ article.image_url }}" alt="{{ article.title }}" />
+    <div class="card  border-secondary">
+      <div class="card-img-top position-relative"
+        style="background-image: url('{{ article.image_url }}'); height: 200px; background-size: cover; background-position: center;">
+        <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-gradient">
+          <span class="badge bg-success">{{ article.topic }}</span>
+        </div>
       </div>
       <div class="card-body">
-        <a href="{% url 'article' article.slug %}" class="text-decoration-none">
-          <h2 class="article-title">{{ article.title | title }}</h2>
-        </a>
-        <a href="{% url 'article' article.slug %}" class="read-more-btn">
-          Read more
-        </a>
+        <h5 class="card-title">
+          <a href="{% url 'article' article.slug %}" class="stretched-link  text-decoration-none text-dark">{{ article.title }}</a>
+        </h5>
+        <div class="d-flex justify-content-between small mt-3">
+          <span class="text-muted">{{ article.created_on }}</span>
+          <a href="{% url 'article' article.slug %}" class="text-success text-decoration-none">Read More →</a>
+        </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
   {% else %}
-  <div class="empty-state">
+  <div class="empty-state mb-5 pb-5">
     <div class="nature-icon">🌿</div>
     <h2>No Articles Found</h2>
     <p>We couldn't find any articles in {% if topic %}{{ topic }}{% else %}this category{% endif %} at the moment.</p>
-    <a href="/" class="read-more-btn mt-4">Return to Homepage</a>
+    <a href="/" class="read-more-btn mt-4 text-dark">Return to Homepage</a>
   </div>
   {% endif %}
 </main>

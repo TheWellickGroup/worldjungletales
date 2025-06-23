@@ -38,7 +38,7 @@
             <h5 class="card-title">{{ article.title }}</h5>
             <p class="card-text text-muted small">
               {% if article.content %}
-              {{ article.content|truncatechars:100 }}
+              {% autoescape off %} {{ article.content|truncatechars:100 }} {% endautoescape %}
               {% else %}
               Explore the fascinating world of wildlife through this captivating article...
               {% endif %}

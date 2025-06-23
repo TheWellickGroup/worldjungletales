@@ -227,7 +227,6 @@
     transition: transform 0.3s;
     border-radius: 8px;
     overflow: hidden;
-    background: rgba(0, 0, 0, 0.2);
   }
 
   .recent-posts .post-item:hover {
@@ -266,7 +265,6 @@
 
   .alert-success {
     border-left: 4px solid #00cc66;
-    color: #e0e0e0;
     padding: 1rem;
     border-radius: 4px;
   }
@@ -274,7 +272,6 @@
   .alert-danger {
     background: rgba(255, 50, 50, 0.1);
     border-left: 4px solid #ff5050;
-    color: #e0e0e0;
     padding: 1rem;
     border-radius: 4px;
   }
@@ -301,28 +298,29 @@
 
           <div class="article-content">
             <h1 class="article-title">{{ article.title }}</h1>
-
             <div class="meta-top">
               <ul>
                 <li>
-                  <i class="bi bi-person text-white"></i>
+                  <i class="bi bi-person-circle text-dark"></i>
                   {{ article.author }}
                 </li>
                 <li>
-                  <i class="bi bi-clock text-white"></i>
+                  <i class="bi bi-clock"></i>
                   <time>{{ article.created_on }}</time>
                 </li>
                 <li>
-                  <i class="bi bi-chat-dots text-white"></i>
+                  <i class="bi bi-chat-dots"></i>
                   {{ comments|length }} Comments
                 </li>
                 <li>
-                  <i class="bi bi-eye text-white"></i>
+                  <i class="bi bi-eye"></i>
                   {{ article.views_count}} Views
                 </li>
               </ul>
             </div>
-
+            <div class="topic-badge">
+              <a href="/?q={{ article.topic }}" class="text-white">#{{ article.topic }}</a>
+            </div>
             <div class="content">
               {% autoescape off %} {{ article.content }} {% endautoescape %}
             </div>
@@ -347,7 +345,7 @@
           </div>
           {% endfor %}
           {% else %}
-          <div class="text-center py-4">
+          <div class="text-center">
             <p class="text-gray-400">No comments yet. Be the first to share your thoughts!</p>
           </div>
           {% endif %}
@@ -413,7 +411,6 @@
       <div class="col-lg-4">
         <div class="sidebar-item recent-posts">
           <h3 class="sidebar-title">EXPLORE MORE</h3>
-
           {% if recents %}
           <div class="mt-4">
             {% for recent in recents %}
@@ -421,7 +418,7 @@
               <img src="{{ recent.image_url }}" alt="{{ recent.title }}" />
               <div>
                 <h4>
-                  <a href="{% url 'article' recent.slug %}">{{ recent.title | title }}</a>
+                  <a href="{% url 'article' recent.slug %}" class="text-dark">{{ recent.title | title }}</a>
                 </h4>
                 <small>{{ recent.created_on }}</small>
               </div>
@@ -438,7 +435,7 @@
           <h3 class="sidebar-title">CONSERVATION SPOTLIGHT</h3>
           <div class="mt-4">
             <div class="mb-4">
-              <h5 class="text-white mb-2">Biodiversity Importance</h5>
+              <h5 class="mb-2">Biodiversity Importance</h5>
               <p class="text-gray-300 mb-3">Protecting wildlife helps maintain ecosystem balance and ensures ecological
                 sustainability.</p>
               <div class="progress" style="height: 6px;">
@@ -448,7 +445,7 @@
             </div>
 
             <div class="mb-4">
-              <h5 class="text-white mb-2">Habitat Loss</h5>
+              <h5 class="mb-2">Habitat Loss</h5>
               <p class="text-gray-300 mb-3">The biggest threat to wildlife is habitat destruction due to human
                 activities.</p>
               <div class="progress" style="height: 6px;">
@@ -457,7 +454,7 @@
               </div>
             </div>
 
-            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-inline-block mt-2 text-green-400 hover:text-green-300">Learn how to contribute →</a>
+            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-inline-block mt-2 text-success">Learn how to contribute →</a>
           </div>
         </div>
 
@@ -467,19 +464,19 @@
           <div class="mt-4">
             <div class="d-flex flex-wrap gap-2">
               <a href="/?q=Rainforest"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Rainforest</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Rainforest</a>
               <a href="/?q=wildlife"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Wildlife</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Wildlife</a>
               <a href="/?q=conservation"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Conservation</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Conservation</a>
               <a href="/?q=biodiversity"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Biodiversity</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Biodiversity</a>
               <a href="/?q=endangered"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Endangered</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Endangered</a>
               <a href="/?q=ecosystem"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Ecosystem</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Ecosystem</a>
               <a href="/?q=sustainable"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-white rounded-full text-sm">Sustainable</a>
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm">Sustainable</a>
             </div>
           </div>
         </div>

@@ -198,3 +198,16 @@ def draft_publish(request, article_pk):
     context["topics"] = topics
 
     return redirect("drafts")
+
+
+@user_passes_test(lambda u: u.is_superuser)
+def unpublish(request, article_pk):
+    author = request.user
+    articles = Article.objects.filter(author=author, status=1)
+    Article.objects.filter(author=author, pk=article_pk).update(status=0)
+    topics = Topic.objects.filter(status=1)
+    context = {}
+    context["articles"] = articles
+    context["topics"] = topics
+
+    return redirect("articles")

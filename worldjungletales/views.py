@@ -99,7 +99,7 @@ def topics(request, slug):
     return render(
         request,
         "worldjungletales/blog/articles.html",
-        {"articles": articles, "topics": topics},
+        {"articles": articles, "topics": topics, "topic": topic},
     )
 
 
