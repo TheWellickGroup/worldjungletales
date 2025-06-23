@@ -32,16 +32,13 @@ ALLOWED_HOSTS = [
     "127.0.0.1",
 ]
 
-# CORS_ORIGIN_WHITELIST = [
-#     'http://localhost:3000',
-# ]
 
 # Application definition
-
 INSTALLED_APPS = [
     "grappelli",
     "django.contrib.auth",
     "django.contrib.contenttypes",
+    "django.contrib.sitemaps",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",

@@ -9,7 +9,7 @@ urlpatterns = [
     path("articles/<slug:slug>/", views.article, name="article"),
     path("subscribe/", views.subscribe, name="subscribe"),
     path("comment/<int:article_pk>/", views.comment, name="comment"),
-    path("privacy-policy/", views.terms, name="terms"),
+    path("privacy-policy/", views.privacy_policy, name="privacy_policy"),
     path("about/", views.about, name="about"),
     path(
         "robots.txt",

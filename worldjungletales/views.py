@@ -63,9 +63,11 @@ def subscribe(request):
     return redirect("home")
 
 
-def terms(request):
+def privacy_policy(request):
     topics = Topic.objects.filter(status=1)
-    return render(request, "worldjungletales/blog/terms.html", {"topics": topics})
+    return render(
+        request, "worldjungletales/blog/privacy_policy.html", {"topics": topics}
+    )
 
 
 def error_404(request, exception):

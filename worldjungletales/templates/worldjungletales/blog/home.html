@@ -1,9 +1,8 @@
 {% extends 'worldjungletales/blog/base.html' %}
+{% block title %} Latest Stories - World Jungle Tales{% endblock %}
 {% block content %}
-<!-- Main Content -->
 <main class="container py-5">
   <div class="row">
-    <!-- Articles Column -->
     <div class="col-lg-8">
       <h2 class="h4 fw-bold mb-4">Latest Stories</h2>
       <div class="row g-4">
@@ -30,16 +29,17 @@
             </div>
           </div>
         </div>
+        <div class="mt-5 text-center">
+          <button class="btn btn-outline-success">Load More</button>
+          </div>
         {% endfor %}
         {% else %}
-        <div class="col-12 text-center py-4">
-          <p>No articles found. Check back soon for exciting stories from the wild!</p>
-        </div>
+        <div class="empty-state mb-5 pb-5">
+          <div class="nature-icon">🌿</div>
+          <h2>No Articles Found</h2>
+          <p>We couldn't find any articles in {% if topic %}{{ topic }}{% else %}this category{% endif %} at the moment.</p>
+          <a href="/" class="read-more-btn mt-4 text-dark">Return to Homepage</a></div>
         {% endif %}
-      </div>
-
-      <div class="mt-5 text-center">
-        <button class="btn btn-outline-success">Load More</button>
       </div>
     </div>
 

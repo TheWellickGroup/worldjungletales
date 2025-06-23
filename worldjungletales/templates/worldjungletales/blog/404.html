@@ -1,8 +1,10 @@
-{% extends 'worldjungletales/blog/base.html' %} {% block content %}
+{% extends 'worldjungletales/blog/base.html' %}
+{% block title %} 404 - World Jungle Tales{% endblock %}
+ {% block content %}
 
 <div class="text-center">
     <h1 class="title"> We could not find the article you want, sorry !</h1>
-    <a class="btn b_btn" href="{{ base_url }}">More Exciting reads here...</a>
+    <a class="btn btn-success" href="{{ base_url }}">More Exciting reads here...</a>
 </div>
 
 {% endblock %}

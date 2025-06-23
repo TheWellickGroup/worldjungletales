@@ -1,7 +1,7 @@
 {% extends 'worldjungletales/blog/base.html' %}
+{% block title %}{{ article.title }}{% endblock %}
 {% block content %}
 <style>
-
   .article-header {
     position: relative;
     padding-top: 2rem;
@@ -282,6 +282,27 @@
       gap: 0.5rem;
     }
   }
+
+  .social-sharing .btn {
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s;
+  }
+
+  .social-sharing .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .social-sharing .btn i {
+    font-size: 1rem;
+  }
 </style>
 
 <section id="blog" class="container blog py-5">
@@ -329,7 +350,6 @@
 
         <div class="comments">
           <h3 class="comments-count">{{ comments|length }} Comments</h3>
-
           {% if comments %}
           {% for comment in comments %}
           <div class="comment">
@@ -356,7 +376,6 @@
           <p class="text-gray-400 mb-4">
             Tell the writer what you think or simply share your thoughts on the topic!
           </p>
-
           <div class="container px-0">
             {% if form.errors %}
             <div class="alert alert-danger mb-4">
@@ -404,7 +423,39 @@
               <button type="submit" class="b_btn">Post Comment</button>
             </div>
           </form>
+        </div>
 
+        <div class="social-sharing mt-5 mb-5">
+          <h4 class="mb-3">Share this article:</h4>
+          <div class="d-flex flex-wrap gap-2">
+            <a href="whatsapp://send?text=Check out this article: {{ article.title }} - {{ request.build_absolute_uri }}"
+              class="btn btn-success btn-sm" target="_blank" rel="noopener noreferrer"
+              style="background-color: #25D366;">
+              <i class="bi bi-whatsapp"></i> WhatsApp
+            </a>
+
+            <a href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}"
+              class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer"
+              style="background-color: #1877F2;">
+              <i class="bi bi-facebook"></i> Facebook
+            </a>
+
+            <a href="https://twitter.com/intent/tweet?text=Check out this article: {{ article.title }}&url={{ request.build_absolute_uri }}"
+              class="btn btn-dark btn-sm" target="_blank" rel="noopener noreferrer" style="background-color: #000000;">
+              <i class="bi bi-twitter-x"></i> X (Twitter)
+            </a>
+
+            <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ request.build_absolute_uri }}&title={{ article.title }}&summary={{ article.content|striptags|truncatewords:20 }}"
+              class="btn btn-primary btn-sm" target="_blank" rel="noopener noreferrer"
+              style="background-color: #0A66C2;">
+              <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+
+            <a href="https://www.instagram.com/" class="btn btn-danger btn-sm" target="_blank" rel="noopener noreferrer"
+              style="background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);">
+              <i class="bi bi-instagram"></i> Instagram
+            </a>
+          </div>
         </div>
       </div>
 
@@ -454,7 +505,8 @@
               </div>
             </div>
 
-            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-inline-block mt-2 text-success">Learn how to contribute →</a>
+            <a href="https://buymeacoffee.com/worldjungletales" target="_blank"
+              class="d-inline-block mt-2 text-success">Learn how to contribute →</a>
           </div>
         </div>
 
