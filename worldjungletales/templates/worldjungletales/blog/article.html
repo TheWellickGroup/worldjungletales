@@ -306,9 +306,9 @@
 </style>
 
 <section id="blog" class="container blog py-5">
-  <div class="container" data-aos="fade-up">
+  <div>
     <div class="row g-5">
-      <div class="col-lg-8">
+      <div class="col-lg-8 col-md-12">
         <article class="blog-details">
           <div class="article-header">
             <div class="post-img">
@@ -322,20 +322,21 @@
             <div class="meta-top">
               <ul>
                 <li>
-                  <i class="bi bi-person-circle text-dark"></i>
-                  {{ article.author }}
+                  <small><i class="bi bi-person-circle text-dark"></i>{{ article.author }}</small>
                 </li>
                 <li>
-                  <i class="bi bi-clock"></i>
-                  <time>{{ article.created_on }}</time>
+                  <small><time><i class="bi bi-clock"></i> {{ article.created_on }}</time></small>
                 </li>
                 <li>
-                  <i class="bi bi-chat-dots"></i>
-                  {{ comments|length }} Comments
+                  <small><i class="bi bi-chat-dots"></i>
+                    {{ comments|length }} Comments
+                  </small>
                 </li>
                 <li>
-                  <i class="bi bi-eye"></i>
-                  {{ article.views_count}} Views
+                  <small>
+                    <i class="bi bi-eye"></i>
+                    {{ article.views_count}} Views
+                  </small>
                 </li>
               </ul>
             </div>

@@ -9,7 +9,7 @@
         {% if articles %}
         {% for article in articles %}
         <div class="col-md-6">
-          <div class="card  border-secondary">
+          <div class="card">
             <div class="card-img-top position-relative"
               style="background-image: url('{{ article.image_url }}'); height: 200px; background-size: cover; background-position: center;">
               <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-gradient">
@@ -18,9 +18,7 @@
             </div>
             <div class="card-body">
               <h5 class="card-title">
-                <a
-                  href="{% url 'article' article.slug %}"
-                  class="stretched-link  text-decoration-none text-dark">{{ article.title }}</a>
+                <a href="{% url 'article' article.slug %}" class="stretched-link  text-decoration-none text-dark">{{ article.title }}</a>
               </h5>
               <div class="d-flex justify-content-between small mt-3">
                 <span class="text-muted">{{ article.created_on }}</span>
@@ -29,16 +27,15 @@
             </div>
           </div>
         </div>
-        <div class="mt-5 text-center">
-          <button class="btn btn-outline-success">Load More</button>
-          </div>
         {% endfor %}
         {% else %}
         <div class="empty-state mb-5 pb-5">
           <div class="nature-icon">🌿</div>
           <h2>No Articles Found</h2>
-          <p>We couldn't find any articles in {% if topic %}{{ topic }}{% else %}this category{% endif %} at the moment.</p>
-          <a href="/" class="read-more-btn mt-4 text-dark">Return to Homepage</a></div>
+          <p>We couldn't find any articles in {% if topic %}{{ topic }}{% else %}this category{% endif %} at the moment.
+          </p>
+          <a href="/" class="read-more-btn mt-4 text-dark">Return to Homepage</a>
+        </div>
         {% endif %}
       </div>
     </div>
@@ -46,7 +43,6 @@
     <!-- Sidebar -->
     <div class="col-lg-4 mt-4 mt-lg-0">
       <div class="sticky-top" style="top: 100px;">
-        <!-- Featured Categories -->
         <div class="mb-4">
           <h3 class="h5 fw-bold mb-3">Explore Categories</h3>
           <div class="row g-2">
@@ -65,11 +61,10 @@
           </div>
         </div>
 
-        <!-- Newsletter -->
-        <div class="card  mb-4 border-secondary">
+        <div class="card mb-4 border-secondary bg-dark">
           <div class="card-body">
-            <h5 class="card-title">Join Our Newsletter</h5>
-            <p class="card-text">Get the latest updates about wildlife conservation and nature stories.</p>
+            <h5 class="card-title text-white">Join Our Newsletter</h5>
+            <p class="card-text text-white">Get the latest updates about wildlife conservation and nature stories.</p>
             <form action="{% url 'subscribe'%}" method="post">
               {% csrf_token %}
               <input type="email" class="form-control mb-2" placeholder="Your email address" id="email" name="email">
@@ -78,14 +73,13 @@
           </div>
         </div>
 
-        <!-- Conservation Status -->
-        <div class="card  border-secondary">
+        <div class="card  border-secondary bg-dark">
           <div class="card-body">
-            <h5 class="card-title">Conservation Status</h5>
+            <h5 class="card-title text-white">Conservation Status</h5>
             <div class="mb-3">
               <div class="d-flex justify-content-between">
-                <span>Tiger</span>
-                <span class="badge bg-danger">Endangered</span>
+                <span class="text-white">Tiger</span>
+                <span class="badge bg-danger text-white">Endangered</span>
               </div>
               <div class="progress">
                 <div class="progress-bar bg-danger" style="width: 30%;"></div>
@@ -93,8 +87,8 @@
             </div>
             <div class="mb-3">
               <div class="d-flex justify-content-between">
-                <span>Gorilla</span>
-                <span class="badge bg-danger">Critically Endangered</span>
+                <span class="text-white">Gorilla</span>
+                <span class="badge bg-danger text-white">Critically Endangered</span>
               </div>
               <div class="progress">
                 <div class="progress-bar bg-danger" style="width: 15%;"></div>
@@ -102,14 +96,15 @@
             </div>
             <div class="mb-3">
               <div class="d-flex justify-content-between">
-                <span>Sea Turtle</span>
-                <span class="badge bg-warning text-dark">Vulnerable</span>
+                <span class="text-white">Sea Turtle</span>
+                <span class="badge bg-warning text-white">Vulnerable</span>
               </div>
               <div class="progress">
                 <div class="progress-bar bg-warning" style="width: 45%;"></div>
               </div>
             </div>
-            <a href="https://buymeacoffee.com/worldjungletales" target="_blank" class="d-block text-center mt-3 text-success">Learn how to help →</a>
+            <a href="https://buymeacoffee.com/worldjungletales" target="_blank"
+              class="d-block text-center mt-3 text-success">Learn how to help →</a>
           </div>
         </div>
       </div>
@@ -126,7 +121,8 @@
           <div class="card-body">
             <div class="h3 text-success mb-3">🌴</div>
             <h5 class="card-title ">Discover Ecosystems</h5>
-            <p class="card-text ">Explore the diverse habitats sustaining Earth's wildlife from dense rainforests to vast
+            <p class="card-text ">Explore the diverse habitats sustaining Earth's wildlife from dense rainforests to
+              vast
               savannahs.</p>
           </div>
         </div>

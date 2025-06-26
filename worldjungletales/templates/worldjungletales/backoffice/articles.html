@@ -1,9 +1,9 @@
 {% extends 'worldjungletales/backoffice/base.html' %}
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
-  <h2><i class="fas fa-book-open me-2" style="color: var(--jungle-green);"></i>My Wildlife Articles</h2>
+  <h5>Published Articles</h5>
   <a href="{% url 'article_new' %}" class="btn btn-primary">
-    <i class="fas fa-feather-alt me-2"></i>New Jungle Tale
+    <i class="bi bi-feather-alt me-2"></i>New Jungle Tale
   </a>
 </div>
 
@@ -16,12 +16,6 @@
       <input type="text" class="form-control border-start-0" placeholder="Search your articles...">
     </div>
   </div>
-  <div class="col-md-6 d-flex justify-content-md-end mt-3 mt-md-0">
-    <div class="btn-group">
-      <button type="button" class="btn btn-outline-primary active">All</button>
-      <button type="button" class="btn btn-outline-primary">Published</button>
-    </div>
-  </div>
 </div>
 
 <div class="album py-2">
@@ -30,11 +24,10 @@
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
       {% for article in articles %}
       <div class="col">
-        <div class="card h-100 border-0 shadow-sm article-card">
-          <div class="position-relative">
-            <img class="card-img-top" style="height: 220px; object-fit: cover; border-radius: 12px 12px 0 0;"
-              src="{{ article.image_url }}" alt="{{ article.title }}" />
-            <div class="position-absolute top-0 end-0 p-2">
+        <div class="card">
+          <div class="position-relative card-img-top"
+            style="background-image: url('{{ article.image_url }}'); height: 200px; background-size: cover; background-position: center;">
+            <div class="position-absolute bottom-0 start-0 end-0 p-2 bg-gradient">
               <span class="badge bg-success">Published</span>
             </div>
           </div>
@@ -160,16 +153,6 @@
     --sky-blue: #5DADE2;
     --bark-brown: #5D4037;
     --jungle-highlight: #7CB342;
-  }
-
-  .article-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 12px;
-  }
-
-  .article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
   }
 
   .btn-primary {

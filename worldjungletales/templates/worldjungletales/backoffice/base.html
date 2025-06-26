@@ -29,261 +29,113 @@
   <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
   <style>
-    :root {
-      --jungle-green: #2E8B57;
-      --leaf-dark: #1e5631;
-      --earth-brown: #8B4513;
-      --sunlight-yellow: #F4D03F;
-      --sky-blue: #5DADE2;
-      --bark-brown: #5D4037;
-      --jungle-highlight: #7CB342;
-    }
-
     body {
-      background-color: #f8f9fa;
-      color: #333;
-      font-family: 'Lora', serif !important;
+      background-color: #ffffff;
     }
 
-    .sidebar {
-      background: linear-gradient(to bottom, var(--jungle-green), var(--leaf-dark));
-      min-height: 100vh;
-      position: relative;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      z-index: 100;
+    .navbar {
+      backdrop-filter: blur(10px);
+      background-color: #212529;
     }
-
-    .sidebar::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath fill='%23ffffff' fill-opacity='0.05' d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z'%3E%3C/path%3E%3C/svg%3E");
-      z-index: -1;
-    }
-
-    .logo-text {
-      color: white;
-      font-weight: 700;
-      font-size: 1.5rem;
-      letter-spacing: 0.5px;
-      padding: 1rem 0;
-      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
-    }
-
-    .nav-link {
-      color: rgba(255, 255, 255, 0.85) !important;
-      padding: 0.8rem 1rem;
-      margin: 0.2rem 0;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      display: flex;
-      align-items: center;
-    }
-
-    .nav-link:hover,
-    .nav-link.active {
-      background-color: rgba(255, 255, 255, 0.15);
-      color: white !important;
-      transform: translateX(5px);
-    }
-
-    .nav-link i {
-      margin-right: 10px;
-      font-size: 1.1rem;
-    }
-
-    .dropdown-menu {
-      background-color: var(--leaf-dark);
-      border: none;
-    }
-
-    .dropdown-item {
-      color: rgba(255, 255, 255, 0.8);
-    }
-
-    .dropdown-item:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    .logout-btn {
-      background-color: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.5);
-      color: white;
-      transition: all 0.3s ease;
-    }
-
-    .logout-btn:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-      border-color: white;
-    }
-
-    .user-avatar {
-      border: 2px solid rgba(255, 255, 255, 0.5);
-    }
-
-    .main-content {
-      padding: 2rem;
-    }
-
-    .card {
-      border: none;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header {
-      background-color: transparent;
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      font-weight: 600;
-    }
-
-    .btn-primary {
-      background-color: var(--jungle-green);
-      border-color: var(--jungle-green);
-    }
-
-    .btn-primary:hover {
-      background-color: var(--leaf-dark);
-      border-color: var(--leaf-dark);
-    }
-
-    .btn-outline-primary {
-      color: var(--jungle-green);
-      border-color: var(--jungle-green);
-    }
-
-    .btn-outline-primary:hover {
-      background-color: var(--jungle-green);
-      color: white;
-    }
-
-    .animal-icon {
-      font-size: 1.5rem;
-      margin-right: 8px;
-      color: var(--jungle-green);
-    }
-
-    .note-editor {
+    .article-card {
       border-radius: 8px;
+      overflow: hidden;
+      transition: all 0.3s ease;
     }
 
-    .note-toolbar {
-      background-color: #f8f9fa;
-      border-radius: 8px 8px 0 0;
+    .article-card:hover {
+      transform: translateY(-5px);
     }
 
-    @media (max-width: 768px) {
-      .sidebar {
-        min-height: auto;
-      }
+    .article-image {
+      height: 220px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
     }
   </style>
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row flex-nowrap">
-      <div class="col-auto col-md-3 col-xl-2 px-0 sidebar">
-        <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-3 text-white min-vh-100">
-          <a href="{% url 'backoffice' %}"
-            class="d-flex align-items-center pb-3 mb-md-0 text-decoration-none w-100 justify-content-center">
-            <i class="fas fa-leaf me-2"></i>
-            <span class="logo-text">World Jungle Tales</span>
-          </a>
-          <hr class="w-100 bg-light opacity-25">
-          <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start align-items-sm-start w-100" id="menu">
-            <li class="nav-item w-100">
-              <a href="{% url 'backoffice' %}" class="nav-link">
-                <i class="bi bi-speedometer2"></i>
-                <span class="ms-1 d-none d-sm-inline">Dashboard</span>
-              </a>
+  <div class="position-relative" style="z-index: 10;">
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top ">
+      <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand fs-3 fw-bold">
+          <span class="text-success">World</span>
+          <span>Jungle</span>
+          <span class="text-success">Tales</span>
+        </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a href="{% url 'backoffice'%}" class="nav-link text-white"><i class="bi bi-speedometer2"></i>
+                Dashboard</a>
             </li>
-            <li class="nav-item w-100">
-              <a href="{% url 'all_topics' %}" class="nav-link">
-                <i class="bi bi-tags-fill"></i>
-                <span class="ms-1 d-none d-sm-inline">Wildlife Topics</span>
-              </a>
+            <li class="nav-item">
+              <a href="{% url 'all_topics'%}" class="nav-link text-white"><i class="bi bi-tags-fill"></i> Topics</a>
             </li>
-            <li class="nav-item w-100">
-              <a href="{% url 'articles' %}" class="nav-link">
-                <i class="bi bi-journal-richtext"></i>
-                <span class="ms-1 d-none d-sm-inline">My Articles</span>
-              </a>
+            <li class="nav-item">
+              <a href="{% url 'articles'%}" class="nav-link text-white"><i class="bi bi-journal-richtext"></i> Articles</a>
             </li>
-            <li class="nav-item w-100">
-              <a href="{% url 'drafts' %}" class="nav-link">
-                <i class="bi bi-file-earmark-text"></i>
-                <span class="ms-1 d-none d-sm-inline">Drafts</span>
-              </a>
+            <li class="nav-item">
+              <a href="{% url 'drafts'%}" class="nav-link text-white"><i class="bi bi-file-earmark-text"></i> Drafts</a>
             </li>
-            <li class="nav-item w-100">
-              <a href="{% url 'article_new' %}" class="nav-link">
-                <i class="bi bi-pencil-square"></i>
-                <span class="ms-1 d-none d-sm-inline">Create New</span>
-              </a>
+            <li class="nav-item">
+              <a href="{% url 'article_new'%}" class="nav-link text-white"><i class="bi bi-pencil-square"></i> Create
+                new</a>
             </li>
-            <li class="nav-item w-100">
-              <a href="/" class="nav-link">
-                <i class="bi bi-house-fill"></i>
-                <span class="ms-1 d-none d-sm-inline">Visit Site</span>
-              </a>
-            </li>
-            <hr />
-            <li class="nav-item w-100">
-              <a href="{% url 'account_logout' %}" class="nav-link">
-                <i class="bi bi-arrow-right"></i>
-                <span class="ms-1 d-none d-sm-inline">Logout</span>
-              </a>
+            <li class="nav-item">
+              <a href="{% url 'home'%}" class="nav-link text-white"><i class="bi bi-house-fill"></i> Visit Site</a>
             </li>
           </ul>
+          {% if request.user.is_authenticated %}
+          <a href="{% url 'backoffice' %}" class="text-white btn btn-success">Dashboard</a>
+          {% endif %}
         </div>
       </div>
-      <div class="col py-3 main-content">
-        {% if messages %}
-        {% for message in messages %}
-        <div class="pt-3">
-          <div class="alert border-0 shadow-sm position-relative overflow-hidden"
-            style="background-color: #d4e7f7; border-radius: 15px;">
-            <div class="position-absolute"
-              style="width: 100%; height: 5px; top: 0; left: 0; background: linear-gradient(to right, #7bb6dd, #a9cce4, #7bb6dd);">
-            </div>
-            <div class="d-flex align-items-center py-2">
-              <div class="me-3">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path
-                    d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
-                    fill="#7bb6dd" fill-opacity="0.2" stroke="#3e7cad" stroke-width="2" />
-                  <path d="M12 16.5V16.6" stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
-                  <path d="M12 7.5V13.5" stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
-                </svg>
-              </div>
-              <div style="font-family: 'Avenir', 'Helvetica', sans-serif; color: #3e7cad;">{{ message }}</div>
-            </div>
-            <div class="position-absolute" style="bottom: 0; right: 0; opacity: 0.15;">
-              <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    </nav>
+
+    <div class="container mt-4">
+      {% if messages %}
+      {% for message in messages %}
+      <div class="pt-3">
+        <div class="alert border-0 shadow-sm position-relative overflow-hidden"
+          style="background-color: #d4e7f7; border-radius: 15px;">
+          <div class="position-absolute"
+            style="width: 100%; height: 5px; top: 0; left: 0; background: linear-gradient(to right, #7bb6dd, #a9cce4, #7bb6dd);">
+          </div>
+          <div class="d-flex align-items-center py-2">
+            <div class="me-3">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
-                  d="M21.5 9C20.5 5 17.5 3 12 3C6.5 3 3.5 6.5 3.5 9C3.5 11.5 4.5 12.5 6 13.5C4.5 14.5 4 16 4 17.5C4 20.5 7 21.5 11 21.5C15 21.5 18 20.5 18 17.5C18 15.5 16.5 14.5 15 13.5C17 12.5 18.5 11.5 19.5 9.5"
-                  stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  fill="#7bb6dd" fill-opacity="0.2" stroke="#3e7cad" stroke-width="2" />
+                <path d="M12 16.5V16.6" stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
+                <path d="M12 7.5V13.5" stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
               </svg>
             </div>
+            <div style="font-family: 'Avenir', 'Helvetica', sans-serif; color: #3e7cad;">{{ message }}</div>
+          </div>
+          <div class="position-absolute" style="bottom: 0; right: 0; opacity: 0.15;">
+            <svg width="70" height="70" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M21.5 9C20.5 5 17.5 3 12 3C6.5 3 3.5 6.5 3.5 9C3.5 11.5 4.5 12.5 6 13.5C4.5 14.5 4 16 4 17.5C4 20.5 7 21.5 11 21.5C15 21.5 18 20.5 18 17.5C18 15.5 16.5 14.5 15 13.5C17 12.5 18.5 11.5 19.5 9.5"
+                stroke="#3e7cad" stroke-width="2" stroke-linecap="round" />
+            </svg>
           </div>
         </div>
-        {% endfor %}
-        {% endif %}
-        {% block content %}
-        {% endblock %}
       </div>
+      {% endfor %}
+      {% endif %}
+      {% block content %}
+      {% endblock %}
     </div>
+
   </div>
 
   <script>

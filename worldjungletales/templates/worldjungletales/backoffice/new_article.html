@@ -1,63 +1,9 @@
 {% extends 'worldjungletales/backoffice/base.html' %}
-
 {% block content %}
-<main class="">
-  <div class="text-center">
-    <h3>Draft now and publish when you like</h3>
-    <form action="" method="POST" enctype="multipart/form-data">
-      {% csrf_token %}
-
-      <div class="form-group mb-3">
-        <label class="form-label" for="title">Article Title</label>
-        <input type="text" id="title" class="form-control {% if form.title.errors %}is-invalid{% endif %}" name="title"
-          value="{{ form.title.value|default_if_none:'' }}" required />
-        {% for error in form.title.errors %}
-        <div class="invalid-feedback">{{ error }}</div>
-        {% endfor %}
-      </div>
-
-      <div class="row">
-        <div class="col">
-          <div class="form-group mb-3">
-            <label class="form-label" for="image">Article Cover</label>
-            <input type="file" class="form-control {% if form.image.errors %}is-invalid{% endif %}" id="image"
-              name="image" />
-            {% for error in form.image.errors %}
-            <div class="invalid-feedback">{{ error }}</div>
-            {% endfor %}
-          </div>
-        </div>
-
-        <div class="col">
-          <div class="form-group mb-3">
-            <label class="form-label" for="topic">Article Topic</label>
-            <select name="topic" class="form-control {% if form.topic.errors %}is-invalid{% endif %}" id="topic"
-              required>
-              <option value="">--Select Topic--</option>
-              {% for topic in topics %}
-              <option value="{{ topic.id }}" {% if form.topic.value == topic.id|stringformat:"s" %}selected{% endif %}>
-                {{ topic.title }}
-              </option>
-              {% endfor %}
-            </select>
-            {% for error in form.topic.errors %}
-            <div class="invalid-feedback">{{ error }}</div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group mb-3">
-        <label class="form-label" for="summernote">Article Content</label>
-        <textarea name="content" id="summernote" cols="30" rows="10"
-          class="form-control {% if form.content.errors %}is-invalid{% endif %}">{{ form.content.value|default_if_none:'' }}</textarea>
-        {% for error in form.content.errors %}
-        <div class="invalid-feedback">{{ error }}</div>
-        {% endfor %}
-      </div>
-
-      <button class="w-100 btn btn-success" type="submit">SAVE DRAFT</button>
-    </form>
-  </div>
-</main>
+<div class="editor-page">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% include 'worldjungletales/backoffice/editor.html' with form=form article=article topics=topics %}
+  </form>
+</div>
 {% endblock %}

@@ -1,0 +1,157 @@
+{% block content %}
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    .editor-header {
+        padding: 2rem 4rem 1rem;
+        border-bottom: 1px solid #e5e5e5;
+    }
+
+    .editor-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 1rem 4rem;
+    }
+
+    .form-control,
+    .form-select {
+        border: none;
+        border-bottom: 1px solid #ccc;
+        border-radius: 0;
+        font-size: 1.25rem;
+        padding-left: 0;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+        box-shadow: none;
+        border-bottom: 2px solid #000;
+    }
+
+    .ql-editor {
+        font-family: 'Lora', serif !important;
+        min-height: 60vh;
+        font-size: 1.2rem;
+    }
+
+    .editor-footer {
+        padding: 1rem 4rem;
+        border-top: 1px solid #e5e5e5;
+        background: #fff;
+        position: sticky;
+        bottom: 0;
+        z-index: 10;
+    }
+
+    .form-label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.25rem;
+    }
+
+    .invalid-feedback {
+        color: red;
+        font-size: 0.9rem;
+    }
+
+    html,
+    body {
+        height: 100%;
+        margin: 0;
+    }
+
+    .editor-page {
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
+</style>
+<div class="editor-header">
+    <input type="text" name="title" id="id_title" placeholder="Title (required)"
+        class="form-control display-6 {% if form.title.errors %}is-invalid{% endif %}"
+        value="{{ form.title.value|default_if_none:'' }}">
+    {% for error in form.title.errors %}
+    <div class="invalid-feedback">{{ error }}</div>
+    {% endfor %}
+</div>
+
+<div class="editor-body">
+    <div class="mb-4">
+        <label for="id_cover_image" class="form-label">Cover Image (required)</label>
+        <input type="file" name="image" id="id_cover_image"
+            class="form-control {% if form.image.errors %}is-invalid{% endif %}">
+        {% if article.image_url %}
+        <small>Current Image: <a href="{{ article.image_url }}" target="_blank">View</a></small>
+        {% endif %}
+        {% for error in form.image.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-4">
+        <label for="id_topic" class="form-label">Topic (required)</label>
+        <select name="topic" id="id_topic" class="form-select {% if form.topic.errors %}is-invalid{% endif %}">
+            <option value="">-- Select Topic --</option>
+            {% for topic in topics %}
+            <option value="{{ topic.id }}" {% if form.topic.value|stringformat:"s" == topic.id|stringformat:"s" %}selected{% endif %}>
+                {{ topic.title }}
+            </option>
+            {% endfor %}
+        </select>
+        {% for error in form.topic.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+
+    <div class="mb-4">
+        <label class="form-label">Content</label>
+        <div id="quill-toolbar"></div>
+        <div id="editor" class="{% if form.content.errors %}is-invalid{% endif %}">
+            {% if form.content.value %}
+            {{ form.content.value|safe }}
+            {% endif %}
+        </div>
+        <textarea name="content" id="id_content" hidden></textarea>
+        {% for error in form.content.errors %}
+        <div class="invalid-feedback">{{ error }}</div>
+        {% endfor %}
+    </div>
+</div>
+
+<div class="editor-footer">
+    <button type="submit" class="btn btn-success w-100">Save</button>
+</div>
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toolbarOptions = [
+            [{ 'header': [1, 2, 3, false] }],
+            ['bold', 'italic', 'underline', 'strike'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'align': [] }],
+            ['link', 'image', 'blockquote'],
+            ['clean']
+        ];
+
+        const quill = new Quill('#editor', {
+            theme: 'snow',
+            placeholder: 'Start writing...',
+            modules: {
+                toolbar: {
+                    container: toolbarOptions
+                }
+            }
+        });
+
+        const contentField = document.getElementById('id_content');
+        if (contentField.value) {
+            quill.root.innerHTML = contentField.value;
+        }
+
+        document.querySelector('form').addEventListener('submit', function () {
+            contentField.value = quill.root.innerHTML;
+        });
+    });
+</script>
+{% endblock %}
