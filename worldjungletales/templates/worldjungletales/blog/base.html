@@ -134,6 +134,10 @@
       background-color: #212529;
     }
 
+    .form-control::placeholder {
+    color: #888;
+  }
+
     .btn-subscribe {
       background: #009966;
       border: none;
@@ -185,17 +189,11 @@
 
         <div class="collapse navbar-collapse" id="navbarContent">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a href="{% url 'home'%}" class="nav-link text-light">Home</a>
-            </li>
             {% for topic in topics %}
             <li class="nav-item">
               <a href="{% url 'topics' topic.slug %}" class="nav-link text-light">{{ topic.title }}</a>
             </li>
             {% endfor %}
-            <li class="nav-item">
-              <a href="{% url 'about'%}" class="nav-link text-light">About</a>
-            </li>
           </ul>
           {% if request.user.is_authenticated %}
           <a href="{% url 'backoffice' %}" class="text-white btn btn-success">Dashboard</a>
@@ -234,6 +232,7 @@
                   class="bi bi-linkedin"></i></a>
               <a href="https://whatsapp.com/channel/0029VbACOVVFXUuVuVsekx3M" target="_blank" class="text-white" aria-label="Join our whatsapp channel"><i
                   class="bi bi-whatsapp"></i></a>
+              <a href="mailto:info@worldjungletales.com" class="text-white" aria-label="Email us"><i class="bi bi-envelope"></i></a>
             </div>
           </div>
 

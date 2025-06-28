@@ -124,6 +124,28 @@
 <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 
 <script>
+    const example = `
+        Title: Catchy, 7–10 words
+            e.g. “5 Secret Habitats of the African Wild Dog”
+
+        Subtitle(Optional): Add context, a hook
+            “These elusive predators are vanishing faster than we think.”
+
+        Intro paragraph: Why this matters
+        “Kenya is home to some of the world’s rarest predators, but very few people ever see them…”
+
+        Body Structure:
+            Section 1 – History or background
+            Section 2 – Key facts or insights
+            Section 3 – Personal story / observation / quote
+            Section 4 – Photo or map(with caption)
+            Section 5 – Call to action
+
+        CTA(End of Post):
+        “Enjoyed this post ? Subscribe for weekly tales from the wild.”
+        “Know a cool wildlife story ? Send it to us.”
+            `;
+
     document.addEventListener('DOMContentLoaded', function () {
         const toolbarOptions = [
             [{ 'header': [1, 2, 3, false] }],
@@ -136,7 +158,7 @@
 
         const quill = new Quill('#editor', {
             theme: 'snow',
-            placeholder: 'Start writing...',
+            placeholder: example,
             modules: {
                 toolbar: {
                     container: toolbarOptions
