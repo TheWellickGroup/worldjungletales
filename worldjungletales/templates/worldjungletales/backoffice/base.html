@@ -26,17 +26,20 @@
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
     integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
     crossorigin="anonymous"></script>
-  <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montaga&display=swap" rel="stylesheet">
   <style>
     body {
       background-color: #ffffff;
+      font-family: "Montaga", serif !important;
     }
 
     .navbar {
       backdrop-filter: blur(10px);
       background-color: #212529;
     }
+
     .article-card {
       border-radius: 8px;
       overflow: hidden;
@@ -80,7 +83,8 @@
               <a href="{% url 'all_topics'%}" class="nav-link text-white"><i class="bi bi-tags-fill"></i> Topics</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'articles'%}" class="nav-link text-white"><i class="bi bi-journal-richtext"></i> Articles</a>
+              <a href="{% url 'articles'%}" class="nav-link text-white"><i class="bi bi-journal-richtext"></i>
+                Articles</a>
             </li>
             <li class="nav-item">
               <a href="{% url 'drafts'%}" class="nav-link text-white"><i class="bi bi-file-earmark-text"></i> Drafts</a>

@@ -3,7 +3,7 @@
 <style>
     .editor-header {
         padding: 2rem 4rem 1rem;
-        border-bottom: 1px solid #e5e5e5;
+        /* border-bottom: 1px solid #e5e5e5; */
     }
 
     .editor-body {
@@ -28,7 +28,7 @@
     }
 
     .ql-editor {
-        font-family: 'Lora', serif !important;
+        font-family: 'Montaga', serif !important;
         min-height: 60vh;
         font-size: 1.2rem;
     }
@@ -56,18 +56,17 @@
 
     html,
     body {
-        height: 100%;
         margin: 0;
+        padding: 0;
+        height: 100%;
     }
 
     .editor-page {
-        display: flex;
-        flex-direction: column;
         height: 100vh;
     }
 </style>
 <div class="editor-header">
-    <input type="text" name="title" id="id_title" placeholder="Title (required)"
+    <input type="text" name="title" id="id_title" placeholder="Catchy Title (required)"
         class="form-control display-6 {% if form.title.errors %}is-invalid{% endif %}"
         value="{{ form.title.value|default_if_none:'' }}">
     {% for error in form.title.errors %}
@@ -127,9 +126,6 @@
     const example = `
         Title: Catchy, 7–10 words
             e.g. “5 Secret Habitats of the African Wild Dog”
-
-        Subtitle(Optional): Add context, a hook
-            “These elusive predators are vanishing faster than we think.”
 
         Intro paragraph: Why this matters
         “Kenya is home to some of the world’s rarest predators, but very few people ever see them…”
