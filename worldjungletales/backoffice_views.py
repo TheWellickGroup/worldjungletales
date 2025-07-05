@@ -177,8 +177,7 @@ def article_edit(request, pk):
 
 @user_passes_test(lambda u: u.is_superuser)
 def drafts(request):
-    author = request.user
-    articles = Article.objects.filter(author=author, status=0)
+    articles = Article.objects.filter(status=0)
     topics = Topic.objects.filter(status=1)
     context = {}
     context["articles"] = articles
