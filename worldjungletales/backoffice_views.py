@@ -190,7 +190,7 @@ def drafts(request):
 @user_passes_test(lambda u: u.is_superuser)
 def draft_publish(request, article_pk):
     author = request.user
-    articles = Article.objects.filter(author=author, status=0)
+    articles = Article.objects.filter(status=0)
     Article.objects.filter(author=author, pk=article_pk).update(status=1)
     topics = Topic.objects.filter(status=1)
     context = {}
