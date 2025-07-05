@@ -151,13 +151,12 @@ def article_new(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def article_edit(request, pk):
-    old_article = get_object_or_404(Article, pk=pk, author=request.user)
+    old_article = get_object_or_404(Article, pk=pk)
 
     if request.method == "POST":
         form = ArticleForm(request.POST, instance=old_article)
         if form.is_valid():
             article = form.save(commit=False)
-            article.author = request.user
             s = StorageClient()
             article.image_url = s.upload_article_cover(request, old_article.image_url)
             article.save()
@@ -188,9 +187,8 @@ def drafts(request):
 
 @user_passes_test(lambda u: u.is_superuser)
 def draft_publish(request, article_pk):
-    author = request.user
     articles = Article.objects.filter(status=0)
-    Article.objects.filter(author=author, pk=article_pk).update(status=1)
+    Article.objects.filter(pk=article_pk).update(status=1)
     topics = Topic.objects.filter(status=1)
     context = {}
     context["articles"] = articles
