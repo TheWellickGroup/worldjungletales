@@ -14,25 +14,27 @@
   </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description"
-    content="At World Jungle Tales, our mission is to celebrate the rich tapestry of global cultures through storytelling. We aim to bridge communities by sharing tales that inspire, educate, and entertain, fostering a deeper understanding and appreciation of the world's diverse wildlife and conservation efforts." />
-  <meta name="keywords"
-    content="world jungle tales, global cultures, storytelling, wildlife, conservation" />
+  <meta name="description" content="Discover inspiring stories of wildlife, culture, and conservation from around the globe. World Jungle Tales brings the wild to life through storytelling.
+" />
+  <meta name="keywords" content="world jungle tales, global cultures, storytelling, wildlife, conservation" />
   <meta name="author" content="Wawiny Edwin" />
   <meta property="og:title" content="Bringing you closer to nature with stories from the world's wildest places." />
-  <meta property="og:description"
-    content="At World Jungle Tales, our mission is to celebrate the rich tapestry of global cultures through storytelling. We aim to bridge communities by sharing tales that inspire, educate, and entertain, fostering a deeper understanding and appreciation of the world's diverse wildlife and conservation efforts." />
+  <meta property="og:description" content="Discover inspiring stories of wildlife, culture, and conservation from around the globe. World Jungle Tales brings the wild to life through storytelling.
+" />
   <meta property="og:image"
     content="https://rturvxlqpsxpkqobiybe.supabase.co/storage/v1/object/public/media/assets/TalesWorldWide%20Logo.png" />
-  <meta property="og:url" content="https://worldjungletales.com" />
+  <meta property="og:url" content="https://worldjungletales.com/" />
+  <meta property="og:site_name" content="World Jungle Tales">
+  <meta property="og:locale" content="en_US">
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="World Junge Tales" />
+  <meta name="twitter:url" content="https://www.worldjungletales.com">
   <meta name="twitter:description"
     content="Bringing you closer to nature with stories from the world's wildest places." />
   <meta name="twitter:image"
     content="https://rturvxlqpsxpkqobiybe.supabase.co/storage/v1/object/public/media/assets/TalesWorldWide%20Logo.png" />
-  <meta name="twitter:site" content="@tales_jungle" />
+  <meta name="twitter:site" content="https://twitter.com/tales_jungle" />
   <title>{% block title %}{% endblock %}</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
@@ -137,8 +139,8 @@
     }
 
     .form-control::placeholder {
-    color: #888;
-  }
+      color: #888;
+    }
 
     .btn-subscribe {
       background: #009966;
@@ -185,7 +187,8 @@
           <span class="text-success">Tales</span>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+          aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 
@@ -224,17 +227,18 @@
             <p class="text-white mb-3">Bringing you closer to nature with stories from the world's wildest places.
             </p>
             <div class="d-flex gap-3">
-              <a href="https://www.x.com/@tales_jungle" target="_blank" class="text-white" aria-label="follow us on X"><i
-                  class="bi bi-twitter-x"></i></a>
-              <a href="https://www.instagram.com/worldjungletales" target="_blank" class="text-white" aria-label="See us on instagram"><i
-                  class="bi bi-instagram"></i></a>
-              <a href="https://www.youtube.com/worldjungletales" target="_blank" class="text-white" aria-label="Visit our Youtube channel"><i
-                  class="bi bi-youtube"></i></a>
-              <a href="https://www.linkedin.com/company/worldjungletales" target="_blank" class="text-white" aria-label="Check us out on linkedin"><i
-                  class="bi bi-linkedin"></i></a>
-              <a href="https://whatsapp.com/channel/0029VbACOVVFXUuVuVsekx3M" target="_blank" class="text-white" aria-label="Join our whatsapp channel"><i
-                  class="bi bi-whatsapp"></i></a>
-              <a href="mailto:info@worldjungletales.com" class="text-white" aria-label="Email us"><i class="bi bi-envelope"></i></a>
+              <a href="https://www.x.com/@tales_jungle" target="_blank" class="text-white"
+                aria-label="follow us on X"><i class="bi bi-twitter-x"></i></a>
+              <a href="https://www.instagram.com/worldjungletales" target="_blank" class="text-white"
+                aria-label="See us on instagram"><i class="bi bi-instagram"></i></a>
+              <a href="https://www.youtube.com/worldjungletales" target="_blank" class="text-white"
+                aria-label="Visit our Youtube channel"><i class="bi bi-youtube"></i></a>
+              <a href="https://www.linkedin.com/company/worldjungletales" target="_blank" class="text-white"
+                aria-label="Check us out on linkedin"><i class="bi bi-linkedin"></i></a>
+              <a href="https://whatsapp.com/channel/0029VbACOVVFXUuVuVsekx3M" target="_blank" class="text-white"
+                aria-label="Join our whatsapp channel"><i class="bi bi-whatsapp"></i></a>
+              <a href="mailto:info@worldjungletales.com" class="text-white" aria-label="Email us"><i
+                  class="bi bi-envelope"></i></a>
             </div>
           </div>
 
@@ -246,8 +250,10 @@
                   Policy</a></li>
               <li class="mb-2"><a href="mailto: info@worldjungletales.com" target="_blank"
                   class="text-white text-decoration-none">Contact</a></li>
-              <li><a href="https://buymeacoffee.com/worldjungletales" target="_blank"
+              <li class="mb-2"><a href="https://buymeacoffee.com/worldjungletales" target="_blank"
                   class="text-white text-decoration-none">Contribute</a></li>
+              <li><a href="{% url 'write_for_us' %}" target="_blank" class="text-white text-decoration-none">Write for
+                  us</a></li>
             </ul>
           </div>
 

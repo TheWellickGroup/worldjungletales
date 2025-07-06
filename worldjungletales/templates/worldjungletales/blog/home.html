@@ -1,5 +1,5 @@
 {% extends 'worldjungletales/blog/base.html' %}
-{% block title %} Latest Stories - World Jungle Tales{% endblock %}
+{% block title %} World Jungle Tales | Wildlife, Culture & Conservation Stories{% endblock %}
 {% block content %}
 <main class="container pb-3 pt-2">
   <div class="row">
@@ -8,7 +8,7 @@
       <div class="row g-4">
         {% if articles %}
         {% for article in articles %}
-        <div class="col-md-6">
+        <article class="col-md-6">
           <div class="card">
             <div class="card-img-top position-relative"
               style="background-image: url('{{ article.image_url }}'); height: 200px; background-size: cover; background-position: center;">
@@ -26,7 +26,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </article>
         {% endfor %}
         {% else %}
         <div class="empty-state mb-5 pb-5">

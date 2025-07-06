@@ -11,6 +11,7 @@ urlpatterns = [
     path("comment/<int:article_pk>/", views.comment, name="comment"),
     path("privacy-policy/", views.privacy_policy, name="privacy_policy"),
     path("about/", views.about, name="about"),
+    path("write-for-us/", views.write_for_us, name="write_for_us"),
     path(
         "robots.txt",
         TemplateView.as_view(

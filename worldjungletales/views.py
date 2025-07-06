@@ -17,6 +17,13 @@ def about(request):
     return render(request, "worldjungletales/blog/about.html", ctx)
 
 
+def write_for_us(request):
+    ctx = {}
+    topics = Topic.objects.filter(status=1)
+    ctx["topics"] = topics
+    return render(request, "worldjungletales/blog/write_for_us.html", ctx)
+
+
 def comment(request, article_pk):
     article = get_object_or_404(Article, pk=article_pk)
     topics = Topic.objects.filter(status=1)
