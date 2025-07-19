@@ -83,8 +83,16 @@
   }
 
   .content {
-    line-height: 1.8;
+    max-width: 100%;
+    overflow-wrap: break-word;
   }
+
+  .content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
 
   .content h1,
   .content h2,
@@ -98,7 +106,7 @@
 
   .content a {
     color: #00cc66;
-    text-decoration: none;
+    text-decoration: underline;
     transition: color 0.2s ease;
   }
 
@@ -514,8 +522,9 @@
             <div class="d-flex flex-wrap gap-2">
               {% for topic in topics %}
               <a href="/topics/{{ topic.slug }}"
-                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm"># {{ topic.title }}</a>
-                {% endfor %}
+                class="px-3 py-1 bg-gradient-to-r from-green-800 to-green-700 text-dark rounded-full text-sm"># {{
+                topic.title }}</a>
+              {% endfor %}
             </div>
           </div>
         </div>

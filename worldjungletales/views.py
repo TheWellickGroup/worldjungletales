@@ -89,7 +89,7 @@ def error_500(request):
 
 def home(request):
     topics = Topic.objects.filter(status=1)
-    qs = Article.objects.filter(status=1).order_by("-updated_on")
+    qs = Article.objects.filter(status=1).order_by("-created_on")
     if q := request.GET.get("q"):
         qs = qs.filter(title__icontains=q)
 
