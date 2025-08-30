@@ -28,7 +28,7 @@
     }
 
     .ql-editor {
-        font-family: 'Montaga', serif !important;
+        font-family: 'Geist', serif !important;
         min-height: 60vh;
         font-size: 1.2rem;
     }
@@ -92,7 +92,8 @@
         <select name="topic" id="id_topic" class="form-select {% if form.topic.errors %}is-invalid{% endif %}">
             <option value="">-- Select Topic --</option>
             {% for topic in topics %}
-            <option value="{{ topic.id }}" {% if form.topic.value|stringformat:"s" == topic.id|stringformat:"s" %}selected{% endif %}>
+            <option value="{{ topic.id }}" {% if form.topic.value|stringformat:"s"==topic.id|stringformat:"s"
+                %}selected{% endif %}>
                 {{ topic.title }}
             </option>
             {% endfor %}
